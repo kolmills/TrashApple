@@ -1,5 +1,5 @@
 package com.example.trashapp;
 
-private class JSONstorage{
+public class JSONstorage{
 
 }

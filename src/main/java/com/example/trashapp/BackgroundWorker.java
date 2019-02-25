@@ -1,5 +1,8 @@
 package com.example.trashapp;
 
-private class BackgroundWorker{
+public class BackgroundWorker{
+    private Employee employeeObject;
+    private Map mapObject;
+    private Customer customerObject;
 
 }

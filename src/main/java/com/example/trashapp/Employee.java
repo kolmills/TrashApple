@@ -1,5 +1,5 @@
 package com.example.trashapp;
 
-public class Map{
+public class Employee{
 
 }

@@ -1,5 +1,5 @@
 package com.example.trashapp;
 
-private class Customer{
+public class Customer{
 
 }
