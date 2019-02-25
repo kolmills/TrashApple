@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
- //HELOO AWERAWSERASGAFGATHAHSGABEWYWEH RHR TFH F
+ //HELOO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
