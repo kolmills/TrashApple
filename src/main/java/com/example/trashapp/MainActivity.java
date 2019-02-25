@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Justin can commit now!!
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -41,9 +42,5 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void NiHao(){
-        sdfdsfsdf;
-
-    }
 
 }
