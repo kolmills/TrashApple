@@ -1,13 +1,15 @@
 package com.example.trashapp;
 
-public class Map{
-    private List<int, int> pointsList;
+import java.util.List;
 
-    public List<int, int> getPointsList() {
+public class Map{
+    private List<Integer> pointsList;
+
+    public List<Integer> getPointsList() {
         return pointsList;
     }
 
-    public void setPointsList(List<int, int> pointsList) {
+    public void setPointsList(List<Integer> pointsList) {
         this.pointsList = pointsList;
     }
 

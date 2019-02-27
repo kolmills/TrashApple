@@ -1,5 +1,7 @@
 package com.example.trashapp;
 
+import java.util.List;
+
 public class BackgroundWorker{
     private Employee employeeObject;
     private Map mapObject;
