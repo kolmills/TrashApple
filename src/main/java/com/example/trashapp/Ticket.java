@@ -1,12 +1,15 @@
 package com.example.trashapp;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class Ticket{
     private Customer customer;
     private Employee employee;
     private Date date;
     private Time time;
     private Map mapPoint;
-    private bool status;
+    private boolean status;
     private String specialNotes;
 
     public Customer getCustomer() {
@@ -49,11 +52,11 @@ public class Ticket{
         this.mapPoint = mapPoint;
     }
 
-    public bool getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(bool status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
