@@ -1,12 +1,15 @@
 package com.example.trashapp;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Ticket{
     private Customer customer;
     private Employee employee;
     private Date date;
     private Time time;
     private Map mapPoint;
-    private bool status;
+    private boolean status;
     private String specialNotes;
 
     public Customer getCustomer() {
