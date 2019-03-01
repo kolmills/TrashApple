@@ -1,6 +1,7 @@
 package com.example.trashapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enter_employee_id);
+        setContentView(R.layout.activity_main);
+        Intent obtainID = new Intent(this, EnterEmployeeID.class);
+        startActivity(obtainID);
 
 
 
