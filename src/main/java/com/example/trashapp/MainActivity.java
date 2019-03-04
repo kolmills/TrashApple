@@ -1,5 +1,7 @@
 package com.example.trashapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -23,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_Map:
+                    mTextMessage.setText(R.string.title_Map);
+                    return true;
+                case R.id.navigation_TicketList:
+                    mTextMessage.setText(R.string.title_TicketList);
                     return true;
             }
             return false;
@@ -35,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent obtainID = new Intent(this, EnterEmployeeID.class);
+        startActivity(obtainID);
+
+
+
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
