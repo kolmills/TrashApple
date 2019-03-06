@@ -1,5 +1,7 @@
 package com.example.trashapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +20,11 @@ public class EnterEmployeeID extends AppCompatActivity {
 
         //set the systems employee ID
         EditText CurrentEmployeeID = (EditText) findViewById(R.id.ID_entered);
+
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.CurrentEmployeeID), newHighScore);
+        editor.commit();
 
         CharSequence text = getString(R.string.CurrentEmployeeID);
         Toast toast = Toast.makeText(getApplicationContext(),text,
