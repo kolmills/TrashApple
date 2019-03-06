@@ -2,7 +2,9 @@ package com.example.trashapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -40,10 +42,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent obtainID = new Intent(this, EnterEmployeeID.class);
-        startActivity(obtainID);
-
-
+        /**if there is no previous instance of the employees ID*/
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String text = sharedPref.getString("CurrentEmployeeID", "");
+        if (text.equals("")) {
+            Intent obtainID = new Intent(this, EnterEmployeeID.class);
+            startActivity(obtainID);
+        }
 
 
         mTextMessage = (TextView) findViewById(R.id.message);
