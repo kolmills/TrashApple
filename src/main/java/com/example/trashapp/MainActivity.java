@@ -1,14 +1,13 @@
 package com.example.trashapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -52,4 +51,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void runTest(View view) {
+        Intent obtainID = new Intent(this, EnterEmployeeID.class);
+        startActivity(obtainID);
+
+    }
 }
