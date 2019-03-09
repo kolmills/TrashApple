@@ -2,7 +2,7 @@ package com.example.trashapp;
 
 import java.util.List;
 
-public class BackgroundWorker{
+public class BackgroundWorker{ 
     private Employee employeeObject;
     private Map mapObject;
     private Customer customerObject;
