@@ -1,6 +1,5 @@
 package com.example.trashapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
 
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_current_ticket:
+                    mTextMessage.setText(R.string.title_current_ticket);
                     return true;
                 case R.id.navigation_Map:
                     mTextMessage.setText(R.string.title_Map);
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent obtainID = new Intent(this, EnterEmployeeID.class);
-        startActivity(obtainID);
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.textview, listTest);
-        ListView listView = findViewById(R.id.listViewForecast);
+        listTest = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.ListView, listTest);
+        ListView listView;
+        listView = findViewById(R.id.ListView);
         listView.setAdapter(arrayAdapter);
 
         /**if there is no previous instance of the employees ID*/
@@ -67,13 +67,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    public void runTest(View view) {
-        Intent obtainID = new Intent(this, EnterEmployeeID.class);
-        startActivity(obtainID);
-
-    }
-
-
     public void runTest(View view) {
         Intent obtainID = new Intent(this, EnterEmployeeID.class);
         startActivity(obtainID);

@@ -36,7 +36,7 @@ public class cardView extends Activity implements AdapterView.OnItemClickListene
         mGridView.setOnItemClickListener(this);
         mAdapter = new com.example.trashapp.cardView.GridAdapter();
         mGridView.setAdapter(mAdapter);
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.textview, listTest);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.textView, listTest);
     }
 
     /**
