@@ -1,10 +1,14 @@
 package com.example.trashapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.Activity;
 
 public class EnterEmployeeID extends AppCompatActivity {
 
@@ -17,9 +21,16 @@ public class EnterEmployeeID extends AppCompatActivity {
     public void SetEmployeeID(View theButton){
 
         //set the systems employee ID
-        EditText CurrentEmployeeID = (EditText) findViewById(R.id.ID_entered);
+        EditText ID = (EditText) findViewById(R.id.ID_entered);
+        String temp = ID.getText().toString();
 
-        CharSequence text = getString(R.string.CurrentEmployeeID);
+        //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("CurrentEmployeeID", temp);
+        editor.commit();
+
+        CharSequence text = sharedPref.getString("CurrentEmployeeID", "");
         Toast toast = Toast.makeText(getApplicationContext(),text,
                 Toast.LENGTH_SHORT);
 

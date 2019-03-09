@@ -8,6 +8,8 @@ public class Customer{
     private String garbageDay;
     private String specialNotes;
     private String subscriptionInfo;
+    private String email;
+    private String phoneNumber;
 
     public String getFirstName() {
         return firstName;
@@ -55,5 +57,21 @@ public class Customer{
 
     public void setSubscriptionInfo(String subscriptionInfo) {
         this.subscriptionInfo = subscriptionInfo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

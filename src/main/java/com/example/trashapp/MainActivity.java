@@ -1,7 +1,10 @@
 package com.example.trashapp;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -52,10 +55,22 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listViewForecast);
         listView.setAdapter(arrayAdapter);
 
+        /**if there is no previous instance of the employees ID*/
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String text = sharedPref.getString("CurrentEmployeeID", "");
+        if (text.equals("")) {
+            Intent obtainID = new Intent(this, EnterEmployeeID.class);
+            startActivity(obtainID);
+        }
 
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+    public void runTest(View view) {
+        Intent obtainID = new Intent(this, EnterEmployeeID.class);
+        startActivity(obtainID);
+
     }
 
 

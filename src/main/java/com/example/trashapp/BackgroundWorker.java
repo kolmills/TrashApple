@@ -6,9 +6,11 @@ public class BackgroundWorker{
     private Employee employeeObject;
     private Map mapObject;
     private Customer customerObject;
-    private List mapList;
-    private List ticketList;
-    private List customerList;
+    private Ticket ticket;
+
+    private List<Map> mapList;
+    private List<Ticket> ticketList;
+    private List<Customer> customerList;
 
     public Employee getEmployeeObject() {
         return employeeObject;
