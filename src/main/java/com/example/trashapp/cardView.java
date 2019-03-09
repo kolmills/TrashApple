@@ -9,6 +9,7 @@ import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,22 +17,26 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 
 public class cardView extends Activity implements AdapterView.OnItemClickListener{
 
     private GridView mGridView;
     private com.example.trashapp.cardView.GridAdapter mAdapter;
-
+    ArrayAdapter<String> arrayAdapter;
+    List<String> listTest;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid);
 
         // Setup the GridView and set the adapter
-        mGridView = (GridView) findViewById(R.id.grid);
+        mGridView = findViewById(R.id.grid);
         mGridView.setOnItemClickListener(this);
         mAdapter = new com.example.trashapp.cardView.GridAdapter();
         mGridView.setAdapter(mAdapter);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.textview, listTest);
     }
 
     /**
@@ -96,11 +101,11 @@ public class cardView extends Activity implements AdapterView.OnItemClickListene
             final Item item = getItem(position);
 
             // Load the thumbnail image
-            ImageView image = (ImageView) view.findViewById(R.id.imageview_item);
+            ImageView image = view.findViewById(R.id.imageview_item);
             Picasso.with(image.getContext()).load(item.getThumbnailUrl()).into(image);
 
             // Set the TextView's contents
-            TextView name = (TextView) view.findViewById(R.id.textview_name);
+            TextView name = view.findViewById(R.id.textview_name);
             name.setText(item.getName());
 
             return view;
