@@ -24,7 +24,7 @@ public class EnterEmployeeID extends AppCompatActivity {
         EditText ID = (EditText) findViewById(R.id.ID_entered);
         String temp = ID.getText().toString();
 
-        //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        //SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("CurrentEmployeeID", temp);
