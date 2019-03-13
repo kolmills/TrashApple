@@ -66,8 +66,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Item item = (Item) adapterView.getItemAtPosition(position);
 
         // Construct an Intent as normal
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.EXTRA_PARAM_ID, item.getId());
+
 
         // BEGIN_INCLUDE(start_activity)
         /**
@@ -75,19 +74,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
          * {@link ActivityOptionsCompat#makeSceneTransitionAnimation(Activity, Pair[])} factory
          * method.
          */
-        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
 
-                // Now we provide a list of Pair items which contain the view we can transitioning
-                // from, and the name of the view it is transitioning to, in the launched activity
-                new Pair<View, String>(view.findViewById(R.id.imageview_item),
-                        DetailActivity.VIEW_NAME_HEADER_IMAGE),
-                new Pair<View, String>(view.findViewById(R.id.textview_name),
-                        DetailActivity.VIEW_NAME_HEADER_TITLE));
-
-        // Now we can start the Activity, providing the activity options as a bundle
-        ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
-        // END_INCLUDE(start_activity)
     }
 
     /**
