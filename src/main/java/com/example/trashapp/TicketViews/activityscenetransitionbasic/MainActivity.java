@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import com.example.trashapp.R;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,7 +31,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.trashapp.DetailActivity;
 import com.example.trashapp.Item;
 import com.example.trashapp.R;
 import com.squareup.picasso.Picasso;
