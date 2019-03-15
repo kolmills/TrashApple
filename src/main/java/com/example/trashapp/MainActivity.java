@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
-        TicketListFragment.OnListFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
+        TicketListFragment.OnFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
         MapView.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
@@ -66,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                         transaction3.commit();
 
                         return true;
+
+                    case R.id.navigation_TicketList:
+
+                        FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = TicketListFragment.newInstance("Andy", "James");
+                        transaction4.replace(R.id.content, selectedFragment);
+                        transaction4.commit();
                 }
                 return false;
             }
@@ -85,12 +93,13 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
             /**if there is no previous instance of the employees ID*/
-            /** SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-             String text = sharedPref.getString("CurrentEmployeeID", "");
-             if (text.equals("")) {
-             Intent obtainID = new Intent(this, EnterEmployeeID.class);
-             startActivity(obtainID);
-             }*/
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            String text = sharedPref.getString("CurrentEmployeeID", "");
+            if (text.equals("")) {
+                Log.i("info", "creating and going to login page");
+                Intent obtainID = new Intent(this, EnterEmployeeID.class);
+                startActivity(obtainID);
+             }
         }
 
     @Override
@@ -98,10 +107,20 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void logoutEmployee(View view) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("CurrentEmployeeID", "");
+        editor.commit();
+
+        Log.i("info", "User has logged out");
+        Log.i("info", "creating and going to login page");
+
+        Intent obtainID = new Intent(this, EnterEmployeeID.class);
+        startActivity(obtainID);
 
     }
+
     /** public void runTest(View view) {
          Intent obtainID = new Intent(this, EnterEmployeeID.class);
          startActivity(obtainID);
