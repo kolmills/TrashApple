@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -118,6 +119,19 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
         Intent obtainID = new Intent(this, EnterEmployeeID.class);
         startActivity(obtainID);
+
+    }
+
+    public void updateTicketList(View view) {
+            //LOGIC FOR UPDATING THE TICKETLIST
+    }
+
+    public void saveSpecialNote(View view) {
+            //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
+        EditText ID = (EditText) findViewById(R.id.specialNoteToSave);
+        String temp = ID.getText().toString();
+
+        //now set the special note for the customer
 
     }
 
