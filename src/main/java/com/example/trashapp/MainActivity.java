@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     public void updateTicketList(View view) {
             //LOGIC FOR UPDATING THE TICKETLIST
-
     }
 
     public void saveSpecialNote(View view) {
