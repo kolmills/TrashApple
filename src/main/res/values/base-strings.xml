@@ -62,4 +62,5 @@
     <string name="title_Map">Map</string>
     <string name="title_activity_get_employee_id">GetEmployeeID</string>
     <string name="CurrentEmployeeID">Current_Employee_ID</string>
+    <string name="SpecialNote">Special_Note</string>
 </resources>

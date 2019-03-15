@@ -6,9 +6,35 @@
     tools:context=".TicketEditor">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ticket Editor"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/specialNoteToSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:visibility="invisible"
+            tools:text="@string/SpecialNote" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="@android:dimen/thumbnail_height"
+            android:layout_height="wrap_content"
+            android:onClick="saveSpecialNote"
+            android:text="Set Special Note" />
+
+    </LinearLayout>
 
 </FrameLayout>
