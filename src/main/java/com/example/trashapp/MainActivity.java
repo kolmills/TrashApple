@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.trashapp.dummy.DummyContent;
+import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
-    List<String> listTest;
+    List listTest;
 
-
+    public BackgroundWorker backgroundWorker;
 
 
         private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                         return true;
 
                     case R.id.navigation_TicketList:
-
+                        backgroundWorker.getTicketList();
                         FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                         selectedFragment = TicketListFragment.newInstance("Andy", "James");
                         transaction4.replace(R.id.content, selectedFragment);
@@ -84,8 +85,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
 
+            setContentView(R.layout.activity_main);
+            FirebaseApp.initializeApp(this);
+            backgroundWorker = new BackgroundWorker(this);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
             transaction.commit();
@@ -136,10 +139,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
-    /** public void runTest(View view) {
-         Intent obtainID = new Intent(this, EnterEmployeeID.class);
-         startActivity(obtainID);
-
-         }*/
-
+    public void getTicketList(View view) {
+            listTest = backgroundWorker.getTicketList();
     }
+
+
+
+}

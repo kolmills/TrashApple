@@ -1,9 +1,15 @@
 package com.example.trashapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,22 +17,50 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.FirebaseApp;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class BackgroundWorker{
+
+
+
+
+
+
+
+
+
+public class BackgroundWorker {
+
+
     private Employee employeeObject;
     private Map mapObject;
     private Customer customerObject;
     private Ticket ticket;
-
+    private List<Ticket> yList;
     private List<Map> mapList;
     private List<Ticket> ticketList;
     private List<Customer> customerList;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Customer");
+    FirebaseApp f;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
+
+
+
+    BackgroundWorker(Context tree){
+        FirebaseApp.initializeApp(tree);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getInstance().getReference();
+
+    }
+
+
+
+
+
 
     public Employee getEmployeeObject() {
         return employeeObject;
@@ -63,26 +97,65 @@ public class BackgroundWorker{
     }
 
     public List getTicketList() {
+        //Query myTopPostsQuery = myRef.child("Ticket").orderByChild("Customer");
+        Object datab = myRef.getDatabase();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //yList = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+            public void onDataChange(DataSnapshot snapshot) {
+                yList.clear();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Ticket Tickets = postSnapshot.getValue(Ticket.class);
+                    yList.add(Tickets);
+        String temp = Tickets.getEmployee().getEmployeeID();
+        //if(temp.contains(CurrentEmployeeID)){
+          ticketList.add(Tickets);
+       // }
+                    // here you canTick access to name property like Tickets.name
+
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+                //System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
+
+
         return ticketList;
     }
 
     public void setTicketList(List ticketList) {
+
         this.ticketList = ticketList;
     }
 
@@ -125,6 +198,7 @@ public class BackgroundWorker{
 
     public void setCustomerList(List customerList) {
         this.customerList = customerList;
+
         myRef.child("Customers").setValue(customerObject);
     }
 
@@ -138,4 +212,5 @@ public class BackgroundWorker{
 
     //Hello guys!!
     /**suck my toes*/
+
 }
