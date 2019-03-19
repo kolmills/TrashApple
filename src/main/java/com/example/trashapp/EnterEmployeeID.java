@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,13 +31,10 @@ public class EnterEmployeeID extends AppCompatActivity {
         editor.putString("CurrentEmployeeID", temp);
         editor.commit();
 
-        CharSequence text = sharedPref.getString("CurrentEmployeeID", "");
-        Toast toast = Toast.makeText(getApplicationContext(),text,
-                Toast.LENGTH_SHORT);
+        Log.i("info", "User has logged in");
 
-        toast.show();
-
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        this.finish();
 
     }
 }

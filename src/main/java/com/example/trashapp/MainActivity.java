@@ -2,74 +2,129 @@ package com.example.trashapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.trashapp.dummy.DummyContent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
+        TicketListFragment.OnFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
+        MapView.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
     List<String> listTest;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+
+
+
+        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Fragment selectedFragment = null;
+
+
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = HomeScreen.newInstance("Andy", "James");
+                        transaction.replace(R.id.content, selectedFragment);
+                        transaction.commit();
+                        return true;
+                    case R.id.navigation_current_ticket:
+
+                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = CurrentTicketView.newInstance("Andy", "James");
+                        transaction2.replace(R.id.content, selectedFragment);
+                        transaction2.commit();
+
+
+                        return true;
+                    case R.id.navigation_Map:
+
+                        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = MapView.newInstance("Andy", "James");
+                        transaction3.replace(R.id.content, selectedFragment);
+                        transaction3.commit();
+
+                        return true;
+
+                    case R.id.navigation_TicketList:
+
+                        FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = TicketListFragment.newInstance("Andy", "James");
+                        transaction4.replace(R.id.content, selectedFragment);
+                        transaction4.commit();
+                }
+                return false;
+            }
+
+        };
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-                    return true;
-                case R.id.navigation_current_ticket:
-                    mTextMessage.setText(R.string.title_current_ticket);
-                    return true;
-                case R.id.navigation_Map:
-                    mTextMessage.setText(R.string.title_Map);
-                    return true;
-                case R.id.navigation_TicketList:
-                    mTextMessage.setText(R.string.title_TicketList);
-                    return true;
-            }
-            return false;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
+            transaction.commit();
+
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+            /**if there is no previous instance of the employees ID*/
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            String text = sharedPref.getString("CurrentEmployeeID", "");
+            if (text.equals("")) {
+                Log.i("info", "creating and going to login page");
+                Intent obtainID = new Intent(this, EnterEmployeeID.class);
+                startActivity(obtainID);
+             }
         }
-    };
- //HELOO
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        listTest = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.listview,R.id.ListView, listTest);
-        ListView listView;
-        listView = findViewById(R.id.ListView);
-        listView.setAdapter(arrayAdapter);
+    public void onFragmentInteraction(Uri uri) {
 
-        /**if there is no previous instance of the employees ID*/
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String text = sharedPref.getString("CurrentEmployeeID", "");
-        if (text.equals("")) {
-            Intent obtainID = new Intent(this, EnterEmployeeID.class);
-            startActivity(obtainID);
-        }
-
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    public void runTest(View view) {
+
+    public void logoutEmployee(View view) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("CurrentEmployeeID", "");
+        editor.commit();
+
+        Log.i("info", "User has logged out");
+        Log.i("info", "creating and going to login page");
+
         Intent obtainID = new Intent(this, EnterEmployeeID.class);
         startActivity(obtainID);
 
     }
-}
+
+    /** public void runTest(View view) {
+         Intent obtainID = new Intent(this, EnterEmployeeID.class);
+         startActivity(obtainID);
+
+         }*/
+
+    }

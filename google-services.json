@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "920819852033",
+    "firebase_url": "https://trashapple-89328.firebaseio.com",
+    "project_id": "trashapple-89328",
+    "storage_bucket": "trashapple-89328.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920819852033:android:ca2af610149a1745",
+        "android_client_info": {
+          "package_name": "com.example.trashapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920819852033-gh0jd2tnnv7sm0jtkc11opk22d6al7eq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trashapp",
+            "certificate_hash": "71842672ee8e57642b82a482ed1c0915a65357a5"
+          }
+        },
+        {
+          "client_id": "920819852033-08r4tptomqmb3oted2bs3j16rpdsmci3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6ukG9i9bbjCPn80e0_daOaPFWrnipeF0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920819852033-08r4tptomqmb3oted2bs3j16rpdsmci3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

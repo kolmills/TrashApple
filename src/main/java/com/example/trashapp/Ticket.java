@@ -8,9 +8,10 @@ public class Ticket{
     private Employee employee;
     private Date date;
     private Time time;
-    private Map mapPoint;
+    private MapView mapPoint;
     private boolean status;
     private String specialNotes;
+
 
     public Customer getCustomer() {
         return customer;
@@ -44,11 +45,11 @@ public class Ticket{
         this.time = time;
     }
 
-    public Map getMapPoint() {
+    public MapView getMapPoint() {
         return mapPoint;
     }
 
-    public void setMapPoint(Map mapPoint) {
+    public void setMapPoint(MapView mapPoint) {
         this.mapPoint = mapPoint;
     }
 
