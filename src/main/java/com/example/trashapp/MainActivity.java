@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.trashapp.dummy.DummyContent;
-import com.google.firebase.FirebaseApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,69 +29,87 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
-    List listTest;
-
-    public BackgroundWorker backgroundWorker;
-
-
-        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                Fragment selectedFragment = null;
+    List<String> ticketList;
+    public static Customer customer;
+    CurrentTicketView CT;
 
 
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = HomeScreen.newInstance("Andy", "James");
-                        transaction.replace(R.id.content, selectedFragment);
-                        transaction.commit();
-                        return true;
-                    case R.id.navigation_current_ticket:
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = CurrentTicketView.newInstance("Andy", "James");
-                        transaction2.replace(R.id.content, selectedFragment);
-                        transaction2.commit();
+            Fragment selectedFragment = null;
 
 
-                        return true;
-                    case R.id.navigation_Map:
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
 
-                        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = MapView.newInstance("Andy", "James");
-                        transaction3.replace(R.id.content, selectedFragment);
-                        transaction3.commit();
+                    //Put function for uploading from datbase
+                    //ticketList = BackgroundWorker.getTicketList();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = HomeScreen.newInstance("Andy", "James");
+                    transaction.replace(R.id.content, selectedFragment);
+                    transaction.commit();
+                    return true;
+                case R.id.navigation_current_ticket:
 
-                        return true;
+                    /**CREATE THE FRAGMENT*/
+                    FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = CurrentTicketView.newInstance("Andy", "James");
 
-                    case R.id.navigation_TicketList:
-                        backgroundWorker.getTicketList();
-                        FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = TicketListFragment.newInstance("Andy", "James");
-                        transaction4.replace(R.id.content, selectedFragment);
-                        transaction4.commit();
-                }
-                return false;
+                    transaction2.replace(R.id.content, selectedFragment);
+                    transaction2.commit();
+
+                    return true;
+                case R.id.navigation_Map:
+
+                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = MapView.newInstance("Andy", "James");
+                    transaction3.replace(R.id.content, selectedFragment);
+                    transaction3.commit();
+
+                    return true;
+
+                case R.id.navigation_TicketList:
+
+                    FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = TicketListFragment.newInstance("Andy", "James");
+                    transaction4.replace(R.id.content, selectedFragment);
+                    transaction4.commit();
+
+                    return true;
+
+                case R.id.navigation_TicketEditor:
+
+                    FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = TicketEditor.newInstance("Andy", "James");
+                    transaction5.replace(R.id.content, selectedFragment);
+                    transaction5.commit();
+
+                    return true;
             }
+            return false;
+        }
 
-        };
+    };
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
             setContentView(R.layout.activity_main);
-            FirebaseApp.initializeApp(this);
-            backgroundWorker = new BackgroundWorker(this);
+
+            /**SETS UP CURRENT VARIABLES*/
+            customer = new Customer();
+            //ticketList =
+
+
+            /**SETS UP THE FRAGMENTS*/
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
             transaction.commit();
-
+            /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -133,16 +150,24 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public void saveSpecialNote(View view) {
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText ID = (EditText) findViewById(R.id.specialNoteToSave);
-        String temp = ID.getText().toString();
+        String note = ID.getText().toString();
 
         //now set the special note for the customer
+        customer.setSpecialNotes(note);
+        Log.i("info", "Special note Saved");
+    }
+
+    public void UploadToDatabase(View view) {
+            //Logic for uploading to our database
+        Log.i("info", "Uploading to Database");
+
 
     }
 
-    public void getTicketList(View view) {
-            listTest = backgroundWorker.getTicketList();
+    /** public void runTest(View view) {
+         Intent obtainID = new Intent(this, EnterEmployeeID.class);
+         startActivity(obtainID);
+
+         }*/
+
     }
-
-
-
-}
