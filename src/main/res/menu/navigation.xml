@@ -20,4 +20,9 @@
         android:id="@+id/navigation_TicketList"
         android:icon="@android:drawable/btn_star_big_on"
         android:title="@string/title_TicketList" />
+
+    <item
+        android:id="@+id/navigation_TicketEditor"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/title_TicketEditor" />
 </menu>

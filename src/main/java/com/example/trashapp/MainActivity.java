@@ -29,67 +29,87 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
-    List<String> listTest;
+    List<String> ticketList;
+    public static Customer customer;
+    CurrentTicketView CT;
 
 
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment selectedFragment = null;
 
 
-        private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    //Put function for uploading from datbase
+                    //ticketList = BackgroundWorker.getTicketList();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = HomeScreen.newInstance("Andy", "James");
+                    transaction.replace(R.id.content, selectedFragment);
+                    transaction.commit();
+                    return true;
+                case R.id.navigation_current_ticket:
 
-                Fragment selectedFragment = null;
+                    /**CREATE THE FRAGMENT*/
+                    FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = CurrentTicketView.newInstance("Andy", "James");
 
+                    transaction2.replace(R.id.content, selectedFragment);
+                    transaction2.commit();
 
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
+                    return true;
+                case R.id.navigation_Map:
 
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = HomeScreen.newInstance("Andy", "James");
-                        transaction.replace(R.id.content, selectedFragment);
-                        transaction.commit();
-                        return true;
-                    case R.id.navigation_current_ticket:
+                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = MapView.newInstance("Andy", "James");
+                    transaction3.replace(R.id.content, selectedFragment);
+                    transaction3.commit();
 
-                        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = CurrentTicketView.newInstance("Andy", "James");
-                        transaction2.replace(R.id.content, selectedFragment);
-                        transaction2.commit();
+                    return true;
 
+                case R.id.navigation_TicketList:
 
-                        return true;
-                    case R.id.navigation_Map:
+                    FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = TicketListFragment.newInstance("Andy", "James");
+                    transaction4.replace(R.id.content, selectedFragment);
+                    transaction4.commit();
 
-                        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = MapView.newInstance("Andy", "James");
-                        transaction3.replace(R.id.content, selectedFragment);
-                        transaction3.commit();
+                    return true;
 
-                        return true;
+                case R.id.navigation_TicketEditor:
 
-                    case R.id.navigation_TicketList:
+                    FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
+                    selectedFragment = TicketEditor.newInstance("Andy", "James");
+                    transaction5.replace(R.id.content, selectedFragment);
+                    transaction5.commit();
 
-                        FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
-                        selectedFragment = TicketListFragment.newInstance("Andy", "James");
-                        transaction4.replace(R.id.content, selectedFragment);
-                        transaction4.commit();
-                }
-                return false;
+                    return true;
             }
+            return false;
+        }
 
-        };
+    };
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
+            /**SETS UP CURRENT VARIABLES*/
+            customer = new Customer();
+            //ticketList =
+
+
+            /**SETS UP THE FRAGMENTS*/
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
             transaction.commit();
-
+            /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -130,9 +150,17 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public void saveSpecialNote(View view) {
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText ID = (EditText) findViewById(R.id.specialNoteToSave);
-        String temp = ID.getText().toString();
+        String note = ID.getText().toString();
 
         //now set the special note for the customer
+        customer.setSpecialNotes(note);
+        Log.i("info", "Special note Saved");
+    }
+
+    public void UploadToDatabase(View view) {
+            //Logic for uploading to our database
+        Log.i("info", "Uploading to Database");
+
 
     }
 

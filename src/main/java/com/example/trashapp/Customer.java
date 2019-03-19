@@ -11,6 +11,17 @@ public class Customer{
     private String email;
     private String phoneNumber;
 
+    public Customer() {
+        this.firstName = "";
+        this.lastName = "";
+        this.address = "";
+        this.garbageDay = "";
+        this.specialNotes = "";
+        this.subscriptionInfo = "";
+        this.email = "";
+        this.phoneNumber = "";
+    }
+
     public String getFirstName() {
         return firstName;
     }
