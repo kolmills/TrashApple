@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public BackgroundWorker backgroundWorker;
     List<String> ticketList;
     public static Customer customer;
+    public static String mainEmployeeID;
     CurrentTicketView CT;
 
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                 Intent obtainID = new Intent(this, EnterEmployeeID.class);
                 startActivity(obtainID);
              }
+             mainEmployeeID = sharedPref.getString("CurrentEmployeeID", "");
         }
 
     @Override
