@@ -15,12 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.trashapp.dummy.DummyContent;
+import com.google.firebase.FirebaseApp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
@@ -29,8 +27,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
+    List listTest;
+
+    public BackgroundWorker backgroundWorker;
     List<String> ticketList;
     public static Customer customer;
+    public static Ticket currentTicket;
     public static String mainEmployeeID;
     CurrentTicketView CT;
 
@@ -74,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     return true;
 
                 case R.id.navigation_TicketList:
-
+                    backgroundWorker.getTicketList();
                     FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = TicketListFragment.newInstance("Andy", "James");
+                    selectedFragment = TicketListFragment.newInstance(backgroundWorker.getTicketList());
                     transaction4.replace(R.id.content, selectedFragment);
                     transaction4.commit();
 
@@ -93,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             }
             return false;
         }
+            };
 
-    };
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
 
             /**SETS UP THE FRAGMENTS*/
+            FirebaseApp.initializeApp(this);
+            backgroundWorker = new BackgroundWorker(this);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
             transaction.commit();
@@ -144,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
+    public void getTicketList(View view) {
+        listTest = backgroundWorker.getTicketList();
+        }
     public void updateTicketList(View view) {
             //LOGIC FOR UPDATING THE TICKETLIST
 
@@ -153,15 +160,16 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText ID = (EditText) findViewById(R.id.specialNoteToSave);
         String note = ID.getText().toString();
-
-        //now set the special note for the customer
         customer.setSpecialNotes(note);
+
+
         Log.i("info", "Special note Saved");
     }
 
     public void UploadToDatabase(View view) {
             //Logic for uploading to our database
         Log.i("info", "Uploading to Database");
+        BackgroundWorker.saveTicket(currentTicket);
 
 
     }
@@ -172,4 +180,4 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
          }*/
 
-    }
+}

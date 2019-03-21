@@ -51,7 +51,12 @@ public class BackgroundWorker {
 
 
     BackgroundWorker(Context tree){
-        FirebaseApp.initializeApp(tree);
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApplicationId("trashapple-89328")
+                .setApiKey("AIzaSyD6ukG9i9bbjCPn80e0_daOaPFWrnipeF0")
+                .setDatabaseUrl("https://trashapple-89328.firebaseio.com")
+                .build();
+        FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
         myRef = database.getInstance().getReference();
 
@@ -210,7 +215,13 @@ public class BackgroundWorker {
         myRef.setValue("Hello, World!");
     }
 
-    //Hello guys!!
-    /**suck my toes*/
+    /**
+     * save the ticket to the database by either creation of a new one
+     * or updating a current one
+     * @param ticket
+     */
+    public static void saveTicket(Ticket ticket){
+
+    }
 
 }

@@ -20,6 +20,7 @@
             android:textSize="24sp" />
 
         <ListView
+            android:id="@+id/TicketList"
             android:layout_width="match_parent"
             android:layout_height="650dp"
             android:layout_gravity="bottom"

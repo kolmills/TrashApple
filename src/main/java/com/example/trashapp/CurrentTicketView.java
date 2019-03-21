@@ -68,7 +68,8 @@ public class CurrentTicketView extends Fragment {
         //return inflater.inflate(R.layout.fragment_current_ticket_view, container, false);
 
         View RootView = inflater.inflate(R.layout.fragment_current_ticket_view, container, false);
-        Customer customer = MainActivity.customer;
+        Ticket ticket = MainActivity.currentTicket;
+        Customer customer = ticket.getCustomer();
         /**SET CURRENT TICKET VALUES*/
         TextView bangCustomer = (TextView) RootView.findViewById(R.id.currentCustomer);
         String fullName = String.format("%s %s", customer.getFirstName(), customer.getLastName());
