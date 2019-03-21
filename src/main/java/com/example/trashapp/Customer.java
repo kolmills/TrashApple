@@ -1,5 +1,7 @@
 package com.example.trashapp;
 
+import java.util.List;
+
 public class Customer{
 
     private String firstName;
@@ -10,6 +12,8 @@ public class Customer{
     private String subscriptionInfo;
     private String email;
     private String phoneNumber;
+    private List<Ticket> ticketList;
+
 
     public Customer() {
         this.firstName = "";
