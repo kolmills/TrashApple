@@ -46,19 +46,20 @@ public class BackgroundWorker {
     FirebaseApp f;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
+    DatabaseReference newChildRef;
 
 
 
     BackgroundWorker(Context tree){
         FirebaseOptions options = new FirebaseOptions.Builder()
-                .setApplicationId("trashapple-89328")
+                .setApplicationId("com.example.trashapp")
                 .setApiKey("AIzaSyD6ukG9i9bbjCPn80e0_daOaPFWrnipeF0")
                 .setDatabaseUrl("https://trashapple-89328.firebaseio.com")
+                .setProjectId("trashapple-89328")
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getInstance().getReference();
+        myRef = database.getReference();
 
     }
 
@@ -102,47 +103,22 @@ public class BackgroundWorker {
     }
 
     public List getTicketList() {
-        //Query myTopPostsQuery = myRef.child("Ticket").orderByChild("Customer");
-        Object datab = myRef.getDatabase();
+        yList = new ArrayList<>();
+        //L = myRef.child("TrashAppleDatabase").orderByChild("Customer");
 
+        //Object datab = myRef.getDatabase();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //yList = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                yList.clear();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Ticket Tickets = postSnapshot.getValue(Ticket.class);
-                    yList.add(Tickets);
-        String temp = Tickets.getEmployee().getEmployeeID();
+                    Customer customer = postSnapshot.getValue(Customer.class);
+                        ticketList.add(customer.getTicket());
+
+
+        //String temp = Tickets.getEmployee().getEmployeeID();
         //if(temp.contains(CurrentEmployeeID)){
-          ticketList.add(Tickets);
+          //ticketList.add(Tickets);
        // }
                     // here you canTick access to name property like Tickets.name
 
@@ -222,6 +198,15 @@ public class BackgroundWorker {
      */
     public static void saveTicket(Ticket ticket){
 
+    }
+    public void makeSampleCustomer(){
+        newChildRef = myRef.push();
+        String key = newChildRef.getKey();
+        Ticket testTicket = new Ticket();
+        Customer customer = new Customer();
+        customer.setFirstName("We are bafoons");
+        testTicket.setCustomer(customer);
+        myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).setValue(testTicket);
     }
 
 }

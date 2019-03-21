@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     return true;
 
                 case R.id.navigation_TicketList:
-                    backgroundWorker.getTicketList();
                     FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                     selectedFragment = TicketListFragment.newInstance(backgroundWorker.getTicketList());
                     transaction4.replace(R.id.content, selectedFragment);
