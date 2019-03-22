@@ -3,21 +3,33 @@ package com.example.trashapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MapView.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MapView#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MapView extends Fragment {
+///**
+// * A simple {@link Fragment} subclass.
+// * Activities that contain this fragment must implement the
+// * {@link MapView.OnFragmentInteractionListener} interface
+// * to handle interaction events.
+// * Use the {@link MapView#newInstance} factory method to
+// * create an instance of this fragment.
+// */
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,20 +41,25 @@ public class MapView extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MapView() {
+    GoogleMap mGoogleMap;
+    MapView mMapView;
+    View mView;
+
+
+    public MapFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MapView.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MapView newInstance(String param1, String param2) {
+//    /**
+//     * Use this factory method to create a new instance of
+//     * this fragment using the provided parameters.
+//     *
+//     * @param param1 Parameter 1.
+//     * @param param2 Parameter 2.
+//     * @return A new instance of fragment MapView.
+//     */
+//    // TODO: Rename and change types and number of parameters
+    public static MapFragment newInstance(String param1, String param2) {
         MapView fragment = new MapView();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -64,7 +81,20 @@ public class MapView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map_view, container, false);
+        mView = inflater.inflate(R.layout.fragment_map_view, container, false);
+        return mView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mMapView = (MapView) mView.findViewById(R.id.map);
+        if(mMapView != null){
+            mMapView.onCreate(null);
+            mMapView.onResume();
+            mMapView.getMapAsync(this);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,6 +119,20 @@ public class MapView extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(getContext());
+
+        mGoogleMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.345345345,-45.3345345)).title("HIIII").snippet("I am"));
+
+        CameraPosition prac = CameraPosition.builder().target(new LatLng(40.345345345,-45.3345345)).zoom(16).bearing(0).tilt(45).build();
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(prac));
     }
 
     /**

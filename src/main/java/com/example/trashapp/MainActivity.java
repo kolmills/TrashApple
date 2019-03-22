@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
         TicketListFragment.OnFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
-        MapView.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
+        MapFragment.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                 case R.id.navigation_Map:
 
                     FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = MapView.newInstance("Andy", "James");
+                    selectedFragment = MapFragment.newInstance("Andy", "James");
                     transaction3.replace(R.id.content, selectedFragment);
                     transaction3.commit();
 
