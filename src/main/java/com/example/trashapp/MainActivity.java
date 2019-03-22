@@ -156,14 +156,34 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
-    public void saveSpecialNote(View view) {
+    public void saveTicketInfo(View view) {
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
-        EditText ID = (EditText) findViewById(R.id.specialNoteToSave);
-        String note = ID.getText().toString();
-        customer.setSpecialNotes(note);
+        EditText note = (EditText) findViewById(R.id.specialnoteSave);
+        customer.setSpecialNotes(note.getText().toString());
 
+        EditText first = (EditText) findViewById(R.id.firstNameSave);
+        customer.setFirstName(first.getText().toString());
 
-        Log.i("info", "Special note Saved");
+        EditText last = (EditText) findViewById(R.id.lastNameSave);
+        customer.setLastName(last.getText().toString());
+
+        EditText addr = (EditText) findViewById(R.id.addressSave);
+        customer.setAddress(addr.getText().toString());
+
+        EditText email = (EditText) findViewById(R.id.emailSave);
+        customer.setEmail(email.getText().toString());
+
+        EditText phone = (EditText) findViewById(R.id.phoneNumberSave);
+        customer.setPhoneNumber(phone.getText().toString());
+
+        EditText garbDay = (EditText) findViewById(R.id.garbageDaySave);
+        customer.setGarbageDay(garbDay.getText().toString());
+
+        EditText subDay = (EditText) findViewById(R.id.subscribeDateSave);
+        customer.setSubscriptionInfo(subDay.getText().toString());
+
+        currentTicket.setCustomer(customer);
+        Log.i("info", "Customer Saved!!");
     }
 
     public void UploadToDatabase(View view) {

@@ -67,9 +67,31 @@ public class TicketEditor extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_ticket_editor, container, false);
         View RootView = inflater.inflate(R.layout.fragment_ticket_editor, container, false);
-        Customer customer = MainActivity.customer;
-        TextView currentNotes = (TextView) RootView.findViewById(R.id.specialNoteToSave);
+        Customer customer = MainActivity.currentTicket.getCustomer();
+        //SET ALL THE VALUES TO WHAT THEY CURRENTLY ARE
+        TextView currentNotes = (TextView) RootView.findViewById(R.id.specialnoteSave);
         currentNotes.setText(customer.getSpecialNotes());
+
+        TextView first = (TextView) RootView.findViewById(R.id.firstNameSave);
+        first.setText(customer.getFirstName());
+
+        TextView last = (TextView) RootView.findViewById(R.id.lastNameSave);
+        last.setText(customer.getPhoneNumber());
+
+        TextView address = (TextView) RootView.findViewById(R.id.addressSave);
+        address.setText(customer.getAddress());
+
+        TextView phone = (TextView) RootView.findViewById(R.id.phoneNumberSave);
+        phone.setText(customer.getPhoneNumber());
+
+        TextView email = (TextView) RootView.findViewById(R.id.emailSave);
+        email.setText(customer.getEmail());
+
+        TextView gDay = (TextView) RootView.findViewById(R.id.garbageDaySave);
+        gDay.setText(customer.getGarbageDay());
+
+        TextView subscribe = (TextView) RootView.findViewById(R.id.subscribeDateSave);
+        subscribe.setText(customer.getSubscriptionInfo());
 
         return RootView;
     }
