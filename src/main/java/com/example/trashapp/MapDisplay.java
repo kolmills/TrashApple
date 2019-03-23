@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MapView.OnFragmentInteractionListener} interface
+ * {@link MapDisplay.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MapView#newInstance} factory method to
+ * Use the {@link MapDisplay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapView extends Fragment {
+public class MapDisplay extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class MapView extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MapView() {
+    public MapDisplay() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class MapView extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MapView.
+     * @return A new instance of fragment MapDisplay.
      */
     // TODO: Rename and change types and number of parameters
-    public static MapView newInstance(String param1, String param2) {
-        MapView fragment = new MapView();
+    public static MapDisplay newInstance(String param1, String param2) {
+        MapDisplay fragment = new MapDisplay();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

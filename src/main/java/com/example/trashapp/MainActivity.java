@@ -16,18 +16,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
         TicketListFragment.OnFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
-        MapView.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
+        MapDisplay.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
     ArrayAdapter<String> arrayAdapter;
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                 case R.id.navigation_Map:
 
                     FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = MapView.newInstance("Andy", "James");
+                    selectedFragment = MapDisplay.newInstance("Andy", "James");
                     transaction3.replace(R.id.content, selectedFragment);
                     transaction3.commit();
 
