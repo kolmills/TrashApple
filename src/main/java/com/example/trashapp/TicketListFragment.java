@@ -67,7 +67,6 @@ public class TicketListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
-
         String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
         //menuItems[2] = customers.get(0).getFirstName();
         ListView listView = (ListView) view.findViewById(R.id.TicketList);

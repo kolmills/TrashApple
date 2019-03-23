@@ -1,8 +1,12 @@
 package com.example.trashapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 
 import com.google.firebase.FirebaseOptions;
@@ -15,9 +19,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 import static com.example.trashapp.MainActivity.customer;
+import static android.support.constraint.Constraints.TAG;
+
 
 
 public class BackgroundWorker {
@@ -55,6 +65,16 @@ public class BackgroundWorker {
 
 
 
+    FirebaseApp f;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
+
+
+
+
+
+
 
     public Employee getEmployeeObject() {
         return employeeObject;
@@ -74,7 +94,6 @@ public class BackgroundWorker {
 
     public Customer getCustomerObject() {
         return customerObject;
-
     }
 
     public void setCustomerObject(Customer customerObject) {
@@ -89,9 +108,6 @@ public class BackgroundWorker {
     public void setMapList(List mapList) {
         this.mapList = mapList;
     }
-
-
-
 
     public List getTicketList() {
         Query ref = myRef.child("TrashAppleDatabase").orderByChild("Customer");
@@ -131,7 +147,6 @@ public class BackgroundWorker {
     }
 
     public void setTicketList(List ticketList) {
-
         this.ticketList = ticketList;
     }
 
@@ -190,9 +205,7 @@ public class BackgroundWorker {
      * or updating a current one
      * @param ticket
      */
-    public static void saveTicket(Ticket ticket){
 
-    }
     public void makeSampleCustomer(){
         newChildRef = myRef.push();
         String key = newChildRef.getKey();
@@ -207,6 +220,15 @@ public class BackgroundWorker {
        // myRef.orderByChild("firstName").on("child_added", function(data) {
        //     console.log(data.val().name);
        // });
+    }
+
+    /**
+     * save the ticket to the database by either creation of a new one
+     * or updating a current one
+     * @param ticket
+     */
+    public static void saveTicket(Ticket ticket){
+
     }
 
 }

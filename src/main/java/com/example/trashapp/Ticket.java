@@ -12,6 +12,10 @@ public class Ticket{
     private boolean status;
     private String specialNotes;
 
+    public Ticket() {
+        this.customer = new Customer();
+    }
+
     public Customer getCustomer() {
         return customer;
     }

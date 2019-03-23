@@ -40,9 +40,18 @@
             android:id="@+id/button2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="-52dp"
             android:onClick="UploadToDatabase"
             android:text="Save Tickets" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220dp"
+            android:onClick="getTicketList"
+            android:text="Download Tickets" />
 
     </LinearLayout>
 
