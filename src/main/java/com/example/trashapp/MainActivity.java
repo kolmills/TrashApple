@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     ArrayAdapter<String> arrayAdapter;
     List listTest;
 
-    public BackgroundWorker backgroundWorker;
-    List<String> ticketList;
+    public static BackgroundWorker backgroundWorker;
+    List<Customer> customerList;
     public static Customer customer;
     public static Ticket currentTicket;
     public static String mainEmployeeID;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     return true;
 
                 case R.id.navigation_TicketList:
-                    backgroundWorker.getTicketList();
+                    //backgroundWorker.getTicketList();
                     FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                     selectedFragment = TicketListFragment.newInstance(backgroundWorker.getTicketList());
                     transaction4.replace(R.id.content, selectedFragment);
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP CURRENT VARIABLES*/
             customer = new Customer();
             currentTicket = new Ticket();
-            //ticketList =
+           // customerList = createCustomerList();
 
 
             /**SETS UP THE FRAGMENTS*/
@@ -245,5 +246,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
          startActivity(obtainID);
 
          }*/
+
 
 }

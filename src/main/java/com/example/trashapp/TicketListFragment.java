@@ -66,14 +66,20 @@ public class TicketListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
-        String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
+        //String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
         //menuItems[2] = customers.get(0).getFirstName();
         ListView listView = (ListView) view.findViewById(R.id.TicketList);
-
+        listView.setAdapter(null);
+        //List y = MainActivity.backgroundWorker.getTicketList();
+        String[] ticketnums = new String[customers.size()];
+        for (int i = 0; i < customers.size();i++){
+            ticketnums[i] = "Ticket: " + (i+1);
+        }
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_1, menuItems
-        );
+                getActivity(), android.R.layout.simple_list_item_1, ticketnums);
+
 
         listView.setAdapter(listViewAdapter);
         return view;
