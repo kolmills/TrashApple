@@ -66,8 +66,8 @@ public class BackgroundWorker {
         myRef1 = database.getReference("Customer");
 
         myRef = database.getReference();
-
-    }
+        customerList = createCustomerList();
+            }
 
     public interface DataStatus{
         void DataIsLoaded(List<Ticket> tickets, List<String> keys);
@@ -135,8 +135,9 @@ public class BackgroundWorker {
     public List getTicketList() {
         Query ref = myRef.child("TrashAppleDatabase").orderByChild("Customer");
         System.out.print(ref.toString());
-        List<Customer> customerList = getCustomerList();
-        if (customerList != null){
+        //List<Customer> customerList = getCustomerList();
+        if (customerList.size() >= ticketList.size()){
+            ticketList.clear();
             for (int i = 0; i < customerList.size(); i++){
                 ticketList.add(customerList.get(i).getTicket());
             }
@@ -153,7 +154,7 @@ public class BackgroundWorker {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     Customer customer = postSnapshot.getValue(Customer.class);
                     Ticket temp = customer.getTicket();
-                        ticketList.add(customer.getTicket());
+                        //ticketList.add(customer.getTicket());
                         yList.add(customer);
                         //h.add(customer.getFirstName());
                         //System.out.print(h.get(0));
@@ -231,7 +232,7 @@ public class BackgroundWorker {
 
     public void makeSampleCustomer(){
         newChildRef = myRef.push();
-        String key = newChildRef.getKey();
+
         Ticket testTicket = new Ticket();
         Customer customer = new Customer();
         customer.setFirstName("We are bafoons");
