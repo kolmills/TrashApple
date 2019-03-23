@@ -1,12 +1,8 @@
 package com.example.trashapp;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 
 import com.google.firebase.FirebaseOptions;
@@ -21,15 +17,7 @@ import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
-
-
-
-
-
-
-
-
+import static com.example.trashapp.MainActivity.customer;
 
 
 public class BackgroundWorker {
@@ -39,9 +27,9 @@ public class BackgroundWorker {
     private Map mapObject;
     private Customer customerObject;
     private Ticket ticket;
-    private List<Ticket> yList;
+    private List<Customer> yList;
     private List<Map> mapList;
-    private List<Ticket> ticketList;
+    private List<Ticket> ticketList = new ArrayList<>();
     private List<Customer> customerList;
     FirebaseApp f;
     FirebaseDatabase database;
@@ -102,29 +90,36 @@ public class BackgroundWorker {
         this.mapList = mapList;
     }
 
-    public List getTicketList() {
-        yList = new ArrayList<>();
-        //L = myRef.child("TrashAppleDatabase").orderByChild("Customer");
 
-        //Object datab = myRef.getDatabase();
+
+
+    public List getTicketList() {
+        Query ref = myRef.child("TrashAppleDatabase").orderByChild("Customer");
+        System.out.print(ref.toString());
+        List<Customer> customerList = getCustomerList();
+        if (customerList != null){
+            for (int i = 0; i < customerList.size(); i++){
+                ticketList.add(customerList.get(i).getTicket());
+            }
+        }
+
+
+        //myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).getKey();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
+
             public void onDataChange(DataSnapshot snapshot) {
+                ArrayList<String> h = new ArrayList<String>();
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     Customer customer = postSnapshot.getValue(Customer.class);
+                    Ticket temp = customer.getTicket();
                         ticketList.add(customer.getTicket());
-
-
-        //String temp = Tickets.getEmployee().getEmployeeID();
-        //if(temp.contains(CurrentEmployeeID)){
-          //ticketList.add(Tickets);
-       // }
-                    // here you canTick access to name property like Tickets.name
-
+                        yList.add(customer);
+                        //h.add(customer.getFirstName());
+                        //System.out.print(h.get(0));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //System.out.println("The read failed: " + firebaseError.getMessage());
@@ -141,11 +136,10 @@ public class BackgroundWorker {
     }
 
     public List getCustomerList() {
-        myRef.child("Customers").getDatabase();
 
-                String myUserId = "Customers";
-        Query myTopPostsQuery = myRef.child("Customers").child(myUserId)
-                .orderByChild("");
+        Query query = myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        String myUserId = "Customers";
+
         myTopPostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -207,6 +201,12 @@ public class BackgroundWorker {
         customer.setFirstName("We are bafoons");
         testTicket.setCustomer(customer);
         myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).setValue(testTicket);
+        myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        //var playersRef = firebase.database().ref("players/");
+
+       // myRef.orderByChild("firstName").on("child_added", function(data) {
+       //     console.log(data.val().name);
+       // });
     }
 
 }
