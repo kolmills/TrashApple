@@ -26,6 +26,18 @@ public class Customer{
         this.phoneNumber = "";
     }
 
+    public Customer(String firstName, String lastName, String address, String garbageDay, String specialNotes, String subscriptionInfo, String email, String phoneNumber, List<Ticket> ticketList) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.garbageDay = garbageDay;
+        this.specialNotes = specialNotes;
+        this.subscriptionInfo = subscriptionInfo;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.ticketList = ticketList;
+    }
+
     public String getFirstName() {
         return firstName;
     }

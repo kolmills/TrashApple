@@ -38,7 +38,6 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
     private OnFragmentInteractionListener mListener;
 
-
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
@@ -79,7 +78,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_map_view, container, false);
+        View mView = inflater.inflate(R.layout.fragment_map_view, container, false);
         return mView;
     }
 
@@ -87,7 +86,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mMapView = (MapView) mView.findViewById(R.id.map);
+        MapView mMapView = (MapView) mView.findViewById(R.id.map);
         if(mMapView != null){
             mMapView.onCreate(null);
             mMapView.onResume();

@@ -8,7 +8,7 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="vertical">
 
@@ -19,16 +19,6 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
-        <ListView
-            android:id="@+id/TicketList"
-            android:layout_width="match_parent"
-            android:layout_height="650dp"
-            android:layout_gravity="bottom"
-            android:clickable="true"
-            android:contextClickable="true"
-            android:divider="?attr/dividerHorizontal"
-            android:scrollIndicators="right" />
-
         <Button
             android:id="@+id/updateTicketListButton"
             android:layout_width="160dp"
@@ -36,6 +26,16 @@
             android:layout_marginLeft="120dp"
             android:onClick="getTicketList"
             android:text="Update Ticket List" />
+
+        <ListView
+            android:id="@+id/TicketList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:divider="?attr/dividerHorizontal"
+            android:scrollIndicators="right" />
 
     </LinearLayout>
 

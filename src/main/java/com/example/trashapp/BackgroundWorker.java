@@ -37,13 +37,19 @@ public class BackgroundWorker {
     private Map mapObject;
     private Customer customerObject;
     private Ticket ticket;
-    private List<Customer> yList;
+    private List<Customer> yList = new ArrayList<>();
     private List<Map> mapList;
     private List<Ticket> ticketList = new ArrayList<>();
     private List<Customer> customerList;
+
+    /**
+     * Firebase properties
+     */
     FirebaseApp f;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    DatabaseReference myRef1;
+
     DatabaseReference newChildRef;
 
 
@@ -57,7 +63,38 @@ public class BackgroundWorker {
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
+        myRef1 = database.getReference("Customer");
+
         myRef = database.getReference();
+
+    }
+
+    public interface DataStatus{
+        void DataIsLoaded(List<Ticket> tickets, List<String> keys);
+        void DataIsInserted();
+        void DataIsUpdated();
+        void DataIsDeleted();
+    }
+
+    public void readTickets(final DataStatus dataStatus){
+        myRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ticketList.clear();
+                List<String> keys = new ArrayList<>();
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
+                    keys.add(keyNode.getKey());
+                    Ticket ticket = keyNode.getValue(Ticket.class);
+                    ticketList.add(ticket);
+                }
+                dataStatus.DataIsLoaded(ticketList, keys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -217,4 +254,40 @@ public class BackgroundWorker {
 
     }
 
+    public List createCustomerList(){
+        final List<Customer> testList = new ArrayList<>();
+
+        Customer cust1 = new Customer();
+        cust1.setFirstName("George");
+        cust1.setLastName("Foreman");
+        cust1.setAddress("1234 goAway");
+        cust1.setGarbageDay("Monday");
+        cust1.setPhoneNumber("12345678");
+        cust1.setSubscriptionInfo("Until July");
+        cust1.setSpecialNotes("has dog");
+        cust1.setEmail("george@foreman.com");
+        testList.add(cust1);
+        Customer cust2 = new Customer();
+        cust2.setFirstName("Sally");
+        cust2.setLastName("Seashells");
+        cust2.setAddress("1 Seashore");
+        cust2.setGarbageDay("Monday");
+        cust2.setPhoneNumber("987654321");
+        cust2.setSubscriptionInfo("Until June");
+        cust2.setSpecialNotes("dont accepts seashells");
+        cust2.setEmail("c-shell@ocean.com");
+        testList.add(cust2);
+        Customer cust3 = new Customer();
+        cust3.setFirstName("Ms.");
+        cust3.setLastName("Pacman");
+        cust3.setAddress("the Arcade");
+        cust3.setGarbageDay("Monday");
+        cust3.setPhoneNumber("8675309");
+        cust3.setSubscriptionInfo("Until May");
+        cust3.setSpecialNotes("MR PACMAN GETS JEALOUS!!!!");
+        cust3.setEmail("i8ghosts@games.com");
+        testList.add(cust3);
+
+        return testList;
+    }
 }
