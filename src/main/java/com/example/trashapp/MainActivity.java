@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,9 +38,19 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     CurrentTicketView CT;
 
 
+
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        /**
+         * ths is the selector for which fragment that is going to be viewed. it is
+         * a case that is ran every time there is a new selection on the navigation
+         * bar on the bottom of the screen. it calls and runs things according as to what
+         * is currently being viewed
+         * @param item this is the current item being selected
+         * @return returns true if screen needs to be changed, false if no screen
+         *         change is necessary
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -98,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             };
 
 
+    /**
+     * creates everything to be ran, the customer, ticket, fragments, and navigation viewer
+     * @param savedInstanceState this is the previous state from last run
+     */
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -105,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
             /**SETS UP CURRENT VARIABLES*/
             customer = new Customer();
+            currentTicket = new Ticket();
             //ticketList =
 
 
@@ -134,6 +150,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
+    /**
+     * logs the current employee out and sets the activity to a login screen until they enter a new employee id
+     * @param view looks at the logout button
+     */
     public void logoutEmployee(View view) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -148,14 +168,27 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
     }
 
+    /**
+     * this runs a ticketlist obtainer function in BackgroundWorker
+     * @param view the button pressed to activate it
+     */
     public void getTicketList(View view) {
         listTest = backgroundWorker.getTicketList();
         }
+
+    /**
+     * updates the ticket list from the database
+     * @param view the button pressed to activate it
+     */
     public void updateTicketList(View view) {
             //LOGIC FOR UPDATING THE TICKETLIST
 
     }
 
+    /**
+     * gets all of the values from the ticketeditor and saves them to the current ticket
+     * @param view the view of the button to be pressed
+     */
     public void saveTicketInfo(View view) {
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText note = (EditText) findViewById(R.id.specialnoteSave);
@@ -183,15 +216,28 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         customer.setSubscriptionInfo(subDay.getText().toString());
 
         currentTicket.setCustomer(customer);
+        BackgroundWorker.saveTicket(currentTicket);
         Log.i("info", "Customer Saved!!");
     }
 
+    /**
+     * uploads everytihng in the ticketlist to the database
+     * @param view the button pressed to activate it
+     */
     public void UploadToDatabase(View view) {
             //Logic for uploading to our database
         Log.i("info", "Uploading to Database");
         BackgroundWorker.saveTicket(currentTicket);
 
 
+    }
+
+    /**
+     * this sets whether or not a ticket has been completed
+     * @param view the view of the checkbox being checked
+     */
+    public void onCheckboxClicked(View view) {
+            currentTicket.setStatus(((CheckBox) view).isChecked());
     }
 
     /** public void runTest(View view) {
