@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import java.util.List;
  * Use the {@link TicketListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TicketListFragment extends Fragment {
+public class TicketListFragment extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,6 +35,12 @@ public class TicketListFragment extends Fragment {
     private static List<Ticket> ticketList = new ArrayList<>();
     private static List<Customer> customers = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
+
+    OnHeadlineSelectedListener callback;
+
+    public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
+        callback = activity;
+    }
 
     public TicketListFragment() {
         // Required empty public constructor
@@ -123,4 +130,17 @@ public class TicketListFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        // Send the event to the host activity
+        callback.onArticleSelected(position);
+    }
+
+    public interface OnHeadlineSelectedListener {
+        public void onArticleSelected(int position);
+    }
+
+
 }
