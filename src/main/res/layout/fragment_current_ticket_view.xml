@@ -135,6 +135,16 @@
             android:text="G"
             android:textSize="18sp" />
 
+        <CheckBox
+            android:id="@+id/ticketDONE"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:text="Ticket Completed"
+            android:onClick="onCheckboxClicked"/>
+
     </LinearLayout>
 
 </FrameLayout>

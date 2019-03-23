@@ -8,217 +8,223 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ticket Editor"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Current Customer: "
-            android:textSize="24sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ticket Editor"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-10dp"
-            android:text="First Name" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Current Customer: "
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="-10dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="-5dp"
-            android:text="Last Name" />
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-10dp"
+                android:text="First Name" />
 
-        <EditText
-            android:id="@+id/firstNameSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="230dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="first"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="-5dp"
+                android:text="Last Name" />
 
-        <EditText
-            android:id="@+id/lastNameSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="-45dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="last"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <EditText
+                android:id="@+id/firstNameSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="230dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="first"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Address: "
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/lastNameSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="200dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="-45dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="last"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/addressSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Address: "
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Phone Number:  "
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/addressSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/phoneNumberSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Phone Number:  "
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Email:"
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/phoneNumberSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/emailSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email:"
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Special Notes:"
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/emailSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/specialnoteSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="note"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Special Notes:"
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Garbage Day: "
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/specialnoteSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="note"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/garbageDaySave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="day"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Garbage Day: "
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Subscribed Until: "
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/garbageDaySave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="day"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/subscribeDateSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginEnd="8dp"
-            android:ems="9"
-            android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="sub"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Subscribed Until: "
+                android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="@android:dimen/thumbnail_height"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
-            android:onClick="saveTicketInfo"
-            android:text="Save"
-            android:textSize="24sp" />
+            <EditText
+                android:id="@+id/subscribeDateSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="8dp"
+                android:ems="9"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:text="sub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/button"
+                android:layout_width="@android:dimen/thumbnail_height"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="saveTicketInfo"
+                android:text="Save"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
