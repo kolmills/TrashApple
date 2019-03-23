@@ -62,20 +62,6 @@ public class BackgroundWorker {
     }
 
 
-
-
-
-    FirebaseApp f;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-
-
-
-
-
-
-
-
     public Employee getEmployeeObject() {
         return employeeObject;
     }
@@ -155,7 +141,7 @@ public class BackgroundWorker {
         Query query = myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
         String myUserId = "Customers";
 
-        myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -203,7 +189,7 @@ public class BackgroundWorker {
     /**
      * save the ticket to the database by either creation of a new one
      * or updating a current one
-     * @param ticket
+     //* @param ticket
      */
 
     public void makeSampleCustomer(){
