@@ -19,16 +19,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
+import static com.example.trashapp.MainActivity.customer;
 import static android.support.constraint.Constraints.TAG;
-
-
-
-
-
-
-
 
 
 
@@ -39,32 +37,29 @@ public class BackgroundWorker {
     private Map mapObject;
     private Customer customerObject;
     private Ticket ticket;
-    private List<Ticket> yList;
+    private List<Customer> yList;
     private List<Map> mapList;
-    private List<Ticket> ticketList;
+    private List<Ticket> ticketList = new ArrayList<>();
     private List<Customer> customerList;
     FirebaseApp f;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
+    DatabaseReference newChildRef;
 
 
 
     BackgroundWorker(Context tree){
         FirebaseOptions options = new FirebaseOptions.Builder()
-                .setApplicationId("trashapple-89328")
+                .setApplicationId("com.example.trashapp")
                 .setApiKey("AIzaSyD6ukG9i9bbjCPn80e0_daOaPFWrnipeF0")
                 .setDatabaseUrl("https://trashapple-89328.firebaseio.com")
+                .setProjectId("trashapple-89328")
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getInstance().getReference();
+        myRef = database.getReference();
 
     }
-
-
-
-
 
 
     public Employee getEmployeeObject() {
@@ -85,7 +80,6 @@ public class BackgroundWorker {
 
     public Customer getCustomerObject() {
         return customerObject;
-
     }
 
     public void setCustomerObject(Customer customerObject) {
@@ -102,53 +96,32 @@ public class BackgroundWorker {
     }
 
     public List getTicketList() {
-        //Query myTopPostsQuery = myRef.child("Ticket").orderByChild("Customer");
-        Object datab = myRef.getDatabase();
+        Query ref = myRef.child("TrashAppleDatabase").orderByChild("Customer");
+        System.out.print(ref.toString());
+        List<Customer> customerList = getCustomerList();
+        if (customerList != null){
+            for (int i = 0; i < customerList.size(); i++){
+                ticketList.add(customerList.get(i).getTicket());
+            }
+        }
 
 
+        //myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).getKey();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //yList = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                yList.clear();
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Ticket Tickets = postSnapshot.getValue(Ticket.class);
-                    yList.add(Tickets);
-        String temp = Tickets.getEmployee().getEmployeeID();
-        //if(temp.contains(CurrentEmployeeID)){
-          ticketList.add(Tickets);
-       // }
-                    // here you canTick access to name property like Tickets.name
 
+            public void onDataChange(DataSnapshot snapshot) {
+                ArrayList<String> h = new ArrayList<String>();
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Customer customer = postSnapshot.getValue(Customer.class);
+                    Ticket temp = customer.getTicket();
+                        ticketList.add(customer.getTicket());
+                        yList.add(customer);
+                        //h.add(customer.getFirstName());
+                        //System.out.print(h.get(0));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //System.out.println("The read failed: " + firebaseError.getMessage());
@@ -160,17 +133,15 @@ public class BackgroundWorker {
     }
 
     public void setTicketList(List ticketList) {
-
         this.ticketList = ticketList;
     }
 
     public List getCustomerList() {
-        myRef.child("Customers").getDatabase();
 
-                String myUserId = "Customers";
-        Query myTopPostsQuery = myRef.child("Customers").child(myUserId)
-                .orderByChild("");
-        myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+        Query query = myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        String myUserId = "Customers";
+
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -213,6 +184,28 @@ public class BackgroundWorker {
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World!");
+    }
+
+    /**
+     * save the ticket to the database by either creation of a new one
+     * or updating a current one
+     //* @param ticket
+     */
+
+    public void makeSampleCustomer(){
+        newChildRef = myRef.push();
+        String key = newChildRef.getKey();
+        Ticket testTicket = new Ticket();
+        Customer customer = new Customer();
+        customer.setFirstName("We are bafoons");
+        testTicket.setCustomer(customer);
+        myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).setValue(testTicket);
+        myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        //var playersRef = firebase.database().ref("players/");
+
+       // myRef.orderByChild("firstName").on("child_added", function(data) {
+       //     console.log(data.val().name);
+       // });
     }
 
     /**

@@ -89,4 +89,8 @@ public class Customer{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public Ticket getTicket() {
+        Ticket  currentTicket = new Ticket();
+        return currentTicket;}
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,23 +31,21 @@ public class TicketListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private static List<Ticket> ticketList = new ArrayList<>();
+    private static List<Customer> customers = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
 
     public TicketListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TicketListFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static TicketListFragment newInstance(List<String> list) {
+    public static TicketListFragment newInstance(List<Customer> list) {
+        //for (int i = 0; i < list.size(); i++){
+         //   ticketList.add(list.get(i).getTicket());
+       // }
+        customers = list;
         TicketListFragment fragment = new TicketListFragment();
         Bundle args = new Bundle();
 
@@ -69,6 +68,7 @@ public class TicketListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
         String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
+        //menuItems[2] = customers.get(0).getFirstName();
         ListView listView = (ListView) view.findViewById(R.id.TicketList);
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
