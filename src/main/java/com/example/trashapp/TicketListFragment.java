@@ -77,8 +77,8 @@ public class TicketListFragment extends ListFragment {
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
         //String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
         //menuItems[2] = customers.get(0).getFirstName();
-        ListView listView = (ListView) view.findViewById(R.id.TicketList);
-        listView.setAdapter(null);
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
+        //listView.setAdapter(null);
         //List y = MainActivity.backgroundWorker.getTicketList();
         String[] ticketnums = new String[customers.size()];
         for (int i = 0; i < customers.size();i++){
