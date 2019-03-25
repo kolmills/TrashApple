@@ -78,8 +78,9 @@ public class BackgroundWorker {
         this.mapObject = mapObject;
     }
 
-    public Customer getCustomerObject() {
-        return customerObject;
+    public Customer getCustomerObject(int position) {
+        return customerList.get(position);
+
     }
 
     public void setCustomerObject(Customer customerObject) {

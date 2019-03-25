@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
-        TicketListFragment.OnHeadlineSelectedListener , CurrentTicketView.OnFragmentInteractionListener,
+        TicketListFragment.OnHeadlineSelectedListener , TicketListFragment.OnFragmentInteractionListener, CurrentTicketView.OnFragmentInteractionListener,
         MapDisplay.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
