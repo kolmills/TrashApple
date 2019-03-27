@@ -38,9 +38,9 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
     private OnFragmentInteractionListener mListener;
 
-    GoogleMap mGoogleMap;
-    MapView mMapView;
-    View mView;
+    private GoogleMap mGoogleMap;
+    private MapView mMapView;
+    private View mView;
 
 
     public MapDisplay() {
