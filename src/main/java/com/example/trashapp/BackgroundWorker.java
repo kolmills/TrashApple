@@ -178,7 +178,7 @@ public class BackgroundWorker {
 
     public List getCustomerList() {
 
-        Query query = myRef.child("TrashAppleDatabase").child("Customer").getClass(customer);
+        Query query = myRef.child("TrashAppleDatabase").child("Customer");
         String myUserId = "Customers";
 
         query.addChildEventListener(new ChildEventListener() {
