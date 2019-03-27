@@ -62,7 +62,8 @@ public class BackgroundWorker {
             }
 
 
-    public Employee getEmployeeObject() {
+    public Employee getEmployeeObject(String employeeID) {
+
         return employeeObject;
     }
 
@@ -140,7 +141,7 @@ public class BackgroundWorker {
 
     public List getCustomerList() {
 
-        Query query = myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        Query query = myRef.child("TrashAppleDatabase").child("Customer").getClass(customer);
         String myUserId = "Customers";
 
         query.addChildEventListener(new ChildEventListener() {

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             Fragment selectedFragment = null;
 
 
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 
