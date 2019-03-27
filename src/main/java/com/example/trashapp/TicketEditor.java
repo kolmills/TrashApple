@@ -76,7 +76,7 @@ public class TicketEditor extends Fragment {
         first.setText(customer.getFirstName());
 
         TextView last = (TextView) RootView.findViewById(R.id.lastNameSave);
-        last.setText(customer.getPhoneNumber());
+        last.setText(customer.getLastName());
 
         TextView address = (TextView) RootView.findViewById(R.id.addressSave);
         address.setText(customer.getAddress());
