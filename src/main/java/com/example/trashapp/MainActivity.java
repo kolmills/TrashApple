@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public void onArticleSelected(int position) {
         //set the current ticket to be the one selected
         customer = backgroundWorker.getCustomerObject(position);
+        currentTicket.setCustomer(customer);
     }
 
     /** public void runTest(View view) {
