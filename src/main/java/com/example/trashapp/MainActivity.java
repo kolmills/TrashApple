@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
-        TicketListFragment.OnFragmentInteractionListener , CurrentTicketView.OnFragmentInteractionListener,
+        TicketListFragment.OnHeadlineSelectedListener , TicketListFragment.OnFragmentInteractionListener, CurrentTicketView.OnFragmentInteractionListener,
         MapDisplay.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
@@ -241,11 +241,26 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             currentTicket.setStatus(((CheckBox) view).isChecked());
     }
 
+    @Override
+    public void onArticleSelected(int position) {
+        //set the current ticket to be the one selected
+        customer = backgroundWorker.getCustomerObject(position);
+        currentTicket.setCustomer(customer);
+    }
+
     /** public void runTest(View view) {
          Intent obtainID = new Intent(this, EnterEmployeeID.class);
          startActivity(obtainID);
 
          }*/
 
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof TicketListFragment) {
+            TicketListFragment Tfrag = (TicketListFragment) fragment;
+            Tfrag.setOnHeadlineSelectedListener(this);
+        }
+    }
 
 }
