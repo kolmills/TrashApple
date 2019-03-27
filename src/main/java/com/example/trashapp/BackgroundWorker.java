@@ -41,9 +41,15 @@ public class BackgroundWorker {
     private List<Map> mapList;
     private List<Ticket> ticketList = new ArrayList<>();
     private List<Customer> customerList;
+
+    /**
+     * Firebase properties
+     */
     FirebaseApp f;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    DatabaseReference myRef1;
+
     DatabaseReference newChildRef;
 
 
@@ -57,9 +63,40 @@ public class BackgroundWorker {
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
+        myRef1 = database.getReference("Customer");
+
         myRef = database.getReference();
         customerList = createCustomerList();
             }
+
+    public interface DataStatus{
+        void DataIsLoaded(List<Ticket> tickets, List<String> keys);
+        void DataIsInserted();
+        void DataIsUpdated();
+        void DataIsDeleted();
+    }
+
+    public void readTickets(final DataStatus dataStatus){
+        myRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ticketList.clear();
+                List<String> keys = new ArrayList<>();
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
+                    keys.add(keyNode.getKey());
+                    Ticket ticket = keyNode.getValue(Ticket.class);
+                    ticketList.add(ticket);
+                }
+                dataStatus.DataIsLoaded(ticketList, keys);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 
     public Employee getEmployeeObject(String employeeID) {
