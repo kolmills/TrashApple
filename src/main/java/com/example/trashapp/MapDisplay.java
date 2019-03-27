@@ -86,7 +86,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MapView mMapView = (MapView) mView.findViewById(R.id.map);
+        mMapView = (MapView) mView.findViewById(R.id.map);
         if(mMapView != null){
             mMapView.onCreate(null);
             mMapView.onResume();
@@ -94,12 +94,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//    // TODO: Rename method, update argument and hook method into UI event
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
 
     @Override
     public void onAttach(Context context) {
