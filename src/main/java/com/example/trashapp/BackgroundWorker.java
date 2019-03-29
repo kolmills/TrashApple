@@ -34,7 +34,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class BackgroundWorker {
 
-
     public static ArrayList<Customer> customerList;
     private Employee employeeObject;
     private Map mapObject;
@@ -50,10 +49,7 @@ public class BackgroundWorker {
     static FirebaseDatabase database;
     public static DatabaseReference myRef;
     DatabaseReference myRef1;
-
     DatabaseReference newChildRef;
-
-
 
     BackgroundWorker(Context tree){
         FirebaseOptions options = new FirebaseOptions.Builder()
@@ -71,8 +67,7 @@ public class BackgroundWorker {
         myRef = database.getReference("Database");
         myRef1 = database.getReference("Database").child("Customers");
         customerList = getCustomerList();
-// Write a message to the database
-        //testList = createCustomerList();
+        testList = createCustomerList();
             }
 
     public void setCurrentCustomer(int position) {
@@ -90,16 +85,20 @@ public class BackgroundWorker {
     public Employee getEmployeeObject(String employeeID) {
         return employeeObject;
     }
+
     public void setEmployeeObject(Employee employeeObject) {
         this.employeeObject = employeeObject;
     }
+
     public Customer getCustomerObject(int position) {
         return customerList.get(position);
 
     }
+
     public List getMapList() {
         return mapList;
     }
+
     public void setMapList(List mapList) {
         this.mapList = mapList;
     }
@@ -151,11 +150,13 @@ public class BackgroundWorker {
 
         myRef.child("Customers").setValue(customerList);
     }
+
     public Ticket createSampleTicket(){
         Ticket t = new Ticket();
         t.setSpecialNotes("HAS TO POOP");
         return t;
     }
+
     public ArrayList createCustomerList(){
         final ArrayList<Customer> testList = new ArrayList<>();
        //myRef.child("Customers").setValue(testList);

@@ -57,16 +57,11 @@ public class TicketListFragment extends ListFragment {
         // Required empty public constructor
     }
 
-
     // TODO: Rename and change types and number of parameters
     public static TicketListFragment newInstance(List<Customer> list) {
-        //for (int i = 0; i < list.size(); i++){
-         //   ticketList.add(list.get(i).getTicket());
-       // }
         customers = list;
         TicketListFragment fragment = new TicketListFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,25 +79,11 @@ public class TicketListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
-
-
-
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
-        //String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
-        //menuItems[2] = customers.get(0).getFirstName();
-         listView = (ListView) view.findViewById(android.R.id.list);
-        //listView.setAdapter(null);
-        //List y = MainActivity.backgroundWorker.getTicketList();
-
-
-        //listViewAdapter = new ArrayAdapter<String>(
-        //        getActivity(), android.R.layout.simple_list_item_1, ticketnums);
-
-
+        listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(listViewAdapter);
         myRef.addValueEventListener(new ValueEventListener(){
+
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
@@ -111,18 +92,13 @@ public class TicketListFragment extends ListFragment {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     //Getting the data from snapshot
                     listViewAdapter.notifyDataSetChanged();
-
                     GenericTypeIndicator<ArrayList<Customer>> t = new GenericTypeIndicator<ArrayList<Customer>>() {};
                     ArrayList<Customer> Array = postSnapshot.getValue(t);
                     MainActivity.backgroundWorker.setCustomerList(Array);
-
                     for(int h = 0; h < Array.size(); h++) {
-
-
                         ticketnums.add(Array.get(h).getFirstName() + " "+ Array.get(h).getLastName());
                     }
                     i++;
-
                 }
 
             }
@@ -133,7 +109,6 @@ public class TicketListFragment extends ListFragment {
             }
 
         });
-
         return view;
     }
 
@@ -176,7 +151,6 @@ public class TicketListFragment extends ListFragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // Send the event to the host activity
@@ -189,6 +163,4 @@ public class TicketListFragment extends ListFragment {
     public interface OnHeadlineSelectedListener {
         public void onArticleSelected(int position);
     }
-
-
 }
