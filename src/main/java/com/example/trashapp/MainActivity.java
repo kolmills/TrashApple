@@ -23,6 +23,10 @@ import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.trashapp.BackgroundWorker.currentCustomer;
+import static com.example.trashapp.BackgroundWorker.currentTicketPosition;
+import static com.example.trashapp.BackgroundWorker.myRef;
+
 public class MainActivity extends AppCompatActivity implements HomeScreen.OnFragmentInteractionListener ,
         TicketListFragment.OnHeadlineSelectedListener , TicketListFragment.OnFragmentInteractionListener, CurrentTicketView.OnFragmentInteractionListener,
         MapDisplay.OnFragmentInteractionListener, TicketEditor.OnFragmentInteractionListener {
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public static Ticket currentTicket;
     public static String mainEmployeeID;
     CurrentTicketView CT;
+
 
 
 
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
             transaction.commit();
             /**SETS UP THE NAVIGATION ON BOTTOM*/
-            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+            BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
             /**if there is no previous instance of the employees ID*/
@@ -192,33 +197,35 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      * @param view the view of the button to be pressed
      */
     public void saveTicketInfo(View view) {
+
+        myRef.child("Customers").setValue(customerList);
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
-        EditText note = (EditText) findViewById(R.id.specialnoteSave);
-        customer.setSpecialNotes(note.getText().toString());
+        EditText note = findViewById(R.id.specialnoteSave);
+        currentCustomer.setSpecialNotes(note.getText().toString());
 
-        EditText first = (EditText) findViewById(R.id.firstNameSave);
-        customer.setFirstName(first.getText().toString());
+        EditText first = findViewById(R.id.firstNameSave);
+        currentCustomer.setFirstName(first.getText().toString());
 
-        EditText last = (EditText) findViewById(R.id.lastNameSave);
-        customer.setLastName(last.getText().toString());
+        EditText last = findViewById(R.id.lastNameSave);
+        currentCustomer.setLastName(last.getText().toString());
 
-        EditText addr = (EditText) findViewById(R.id.addressSave);
-        customer.setAddress(addr.getText().toString());
+        EditText addr = findViewById(R.id.addressSave);
+        currentCustomer.setAddress(addr.getText().toString());
 
-        EditText email = (EditText) findViewById(R.id.emailSave);
-        customer.setEmail(email.getText().toString());
+        EditText email = findViewById(R.id.emailSave);
+        currentCustomer.setEmail(email.getText().toString());
 
-        EditText phone = (EditText) findViewById(R.id.phoneNumberSave);
-        customer.setPhoneNumber(phone.getText().toString());
+        EditText phone = findViewById(R.id.phoneNumberSave);
+        currentCustomer.setPhoneNumber(phone.getText().toString());
 
-        EditText garbDay = (EditText) findViewById(R.id.garbageDaySave);
-        customer.setGarbageDay(garbDay.getText().toString());
+        EditText garbDay = findViewById(R.id.garbageDaySave);
+        currentCustomer.setGarbageDay(garbDay.getText().toString());
 
-        EditText subDay = (EditText) findViewById(R.id.subscribeDateSave);
-        customer.setSubscriptionInfo(subDay.getText().toString());
+        EditText subDay = findViewById(R.id.subscribeDateSave);
+        currentCustomer.setSubscriptionInfo(subDay.getText().toString());
 
-        currentTicket.setCustomer(customer);
-        BackgroundWorker.saveTicket(currentTicket);
+        //customerList.set(currentTicketPosition, currentCustomer);
+        BackgroundWorker.saveTicket();
         Log.i("info", "Customer Saved!!");
     }
 
@@ -229,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public void UploadToDatabase(View view) {
             //Logic for uploading to our database
         Log.i("info", "Uploading to Database");
-        BackgroundWorker.saveTicket(currentTicket);
+        BackgroundWorker.saveTicket();
 
 
     }
