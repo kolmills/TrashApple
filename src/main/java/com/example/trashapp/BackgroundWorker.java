@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
+import com.google.firebase.FirebaseError;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import static com.example.trashapp.MainActivity.currentTicket;
 import static com.example.trashapp.MainActivity.customer;
 import static android.support.constraint.Constraints.TAG;
 
@@ -33,21 +35,20 @@ import static android.support.constraint.Constraints.TAG;
 public class BackgroundWorker {
 
 
+    public static ArrayList<Customer> customerList;
     private Employee employeeObject;
     private Map mapObject;
-    private Customer customerObject;
-    private Ticket ticket;
-    private List<Customer> yList = new ArrayList<>();
+    protected static Customer currentCustomer;
     private List<Map> mapList;
     private List<Ticket> ticketList = new ArrayList<>();
-    private List<Customer> customerList;
-
+    public static int currentTicketPosition;
+    static ArrayList<Customer> testList;
     /**
      * Firebase properties
      */
-    FirebaseApp f;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+     FirebaseApp f;
+    static FirebaseDatabase database;
+    public static DatabaseReference myRef;
     DatabaseReference myRef1;
 
     DatabaseReference newChildRef;
@@ -58,16 +59,26 @@ public class BackgroundWorker {
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("com.example.trashapp")
                 .setApiKey("AIzaSyD6ukG9i9bbjCPn80e0_daOaPFWrnipeF0")
-                .setDatabaseUrl("https://trashapple-89328.firebaseio.com")
+                .setDatabaseUrl("https://trashapple-89328.firebaseio.com/")
                 .setProjectId("trashapple-89328")
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
-        myRef1 = database.getReference("Customer");
+        //myRef1 = database.getReference("Customer");
 
-        myRef = database.getReference();
-        customerList = createCustomerList();
+
+
+        myRef = database.getReference("Database");
+        myRef1 = database.getReference("Database").child("Customers");
+        customerList = getCustomerList();
+// Write a message to the database
+        //testList = createCustomerList();
             }
+
+    public void setCurrentCustomer(int position) {
+        currentTicketPosition = position;
+        currentCustomer = customerList.get(position);
+    }
 
     public interface DataStatus{
         void DataIsLoaded(List<Ticket> tickets, List<String> keys);
@@ -76,97 +87,25 @@ public class BackgroundWorker {
         void DataIsDeleted();
     }
 
-    public void readTickets(final DataStatus dataStatus){
-        myRef1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ticketList.clear();
-                List<String> keys = new ArrayList<>();
-                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
-                    keys.add(keyNode.getKey());
-                    Ticket ticket = keyNode.getValue(Ticket.class);
-                    ticketList.add(ticket);
-                }
-                dataStatus.DataIsLoaded(ticketList, keys);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-
-    public Employee getEmployeeObject() {
+    public Employee getEmployeeObject(String employeeID) {
         return employeeObject;
     }
-
     public void setEmployeeObject(Employee employeeObject) {
         this.employeeObject = employeeObject;
     }
-
-    public Map getMapObject() {
-        return mapObject;
-    }
-
-    public void setMapObject(Map mapObject) {
-        this.mapObject = mapObject;
-    }
-
     public Customer getCustomerObject(int position) {
         return customerList.get(position);
 
     }
-
-    public void setCustomerObject(Customer customerObject) {
-        this.customerObject = customerObject;
-        myRef.child("Customers").setValue(customerObject);
-    }
-
     public List getMapList() {
         return mapList;
     }
-
     public void setMapList(List mapList) {
         this.mapList = mapList;
     }
 
     public List getTicketList() {
-        Query ref = myRef.child("TrashAppleDatabase").orderByChild("Customer");
-        System.out.print(ref.toString());
-        //List<Customer> customerList = getCustomerList();
-        if (customerList.size() >= ticketList.size()){
-            ticketList.clear();
-            for (int i = 0; i < customerList.size(); i++){
-                ticketList.add(customerList.get(i).getTicket());
-            }
-        }
-
-
-        //myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).getKey();
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-
-            public void onDataChange(DataSnapshot snapshot) {
-                ArrayList<String> h = new ArrayList<String>();
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Customer customer = postSnapshot.getValue(Customer.class);
-                    Ticket temp = customer.getTicket();
-                        //ticketList.add(customer.getTicket());
-                        yList.add(customer);
-                        //h.add(customer.getFirstName());
-                        //System.out.print(h.get(0));
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
-
+        customerList = getCustomerList();
 
         return ticketList;
     }
@@ -175,54 +114,13 @@ public class BackgroundWorker {
         this.ticketList = ticketList;
     }
 
-    public List getCustomerList() {
-
-        Query query = myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
-        String myUserId = "Customers";
-
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-            // TODO: implement the ChildEventListener methods as documented above
-            // ...
-        });
+    public ArrayList getCustomerList() {
         return customerList;
     }
 
-    public void setCustomerList(List customerList) {
+    public void setCustomerList(ArrayList customerList) {
+        //myRef.child("Customers").setValue(customerList);
         this.customerList = customerList;
-
-        myRef.child("Customers").setValue(customerObject);
-    }
-
-    public void UpdateJsonStorage(){
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
     }
 
     /**
@@ -231,65 +129,74 @@ public class BackgroundWorker {
      //* @param ticket
      */
 
-    public void makeSampleCustomer(){
+    public void makeSampleCustomer(Customer customenr){
         newChildRef = myRef.push();
-
-        Ticket testTicket = new Ticket();
-        Customer customer = new Customer();
-        customer.setFirstName("We are bafoons");
-        testTicket.setCustomer(customer);
-        myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).setValue(testTicket);
-        myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
+        Customer customery = new Customer();
+        customery.setFirstName("getertrt");
+        myRef.child("TrashAppleDatabase").child("Customer").child(customer.getFirstName()).setValue(customery);
+      myRef.child("TrashAppleDatabase").child("Customer").orderByValue();
         //var playersRef = firebase.database().ref("players/");
 
        // myRef.orderByChild("firstName").on("child_added", function(data) {
        //     console.log(data.val().name);
        // });
     }
-
     /**
      * save the ticket to the database by either creation of a new one
      * or updating a current one
-     * @param ticket
      */
-    public static void saveTicket(Ticket ticket){
+    public static void saveTicket(){
+        //customerList.set(currentTicketPosition, currentCustomer);
 
+
+        myRef.child("Customers").setValue(customerList);
     }
+    public Ticket createSampleTicket(){
+        Ticket t = new Ticket();
+        t.setSpecialNotes("HAS TO POOP");
+        return t;
+    }
+    public ArrayList createCustomerList(){
+        final ArrayList<Customer> testList = new ArrayList<>();
+       //myRef.child("Customers").setValue(testList);
+            Ticket t = new Ticket();
+            ArrayList<Ticket> test = new ArrayList<>();
+            test.add(t);
+            Customer cust1 = new Customer();
+            cust1.setFirstName("George");
+            cust1.setLastName("Foreman");
+            cust1.setAddress("1234 goAway");
+            cust1.setGarbageDay("Monday");
+            cust1.setPhoneNumber("12345678");
+            cust1.setSubscriptionInfo("Until July");
+            cust1.setSpecialNotes("has dog");
+            cust1.setEmail("george@foreman.com");
+            cust1.setTicketList(test);
+            testList.add(cust1);
+            Customer cust2 = new Customer();
+            cust2.setFirstName("Sally");
+            cust2.setLastName("Seashells");
+            cust2.setAddress("1 Seashore");
+            cust2.setGarbageDay("Monday");
+            cust2.setPhoneNumber("987654321");
+            cust2.setSubscriptionInfo("Until June");
+            cust2.setSpecialNotes("dont accepts seashells");
+            cust2.setEmail("c-shell@ocean.com");
+        cust2.setTicketList(test);
+            testList.add(cust2);
+            Customer cust3 = new Customer();
+            cust3.setFirstName("Ms.");
+            cust3.setLastName("Pacman");
+            cust3.setAddress("the Arcade");
+            cust3.setGarbageDay("Monday");
+            cust3.setPhoneNumber("8675309");
+            cust3.setSubscriptionInfo("Until May");
+            cust3.setSpecialNotes("MR PACMAN GETS JEALOUS!!!!");
+            cust3.setEmail("i8ghosts@games.com");
+        cust3.setTicketList(test);
+            testList.add(cust3);
+        myRef.child("Customers").setValue(testList);
+            return testList;
 
-    public List createCustomerList(){
-        final List<Customer> testList = new ArrayList<>();
-
-        Customer cust1 = new Customer();
-        cust1.setFirstName("George");
-        cust1.setLastName("Foreman");
-        cust1.setAddress("1234 goAway");
-        cust1.setGarbageDay("Monday");
-        cust1.setPhoneNumber("12345678");
-        cust1.setSubscriptionInfo("Until July");
-        cust1.setSpecialNotes("has dog");
-        cust1.setEmail("george@foreman.com");
-        testList.add(cust1);
-        Customer cust2 = new Customer();
-        cust2.setFirstName("Sally");
-        cust2.setLastName("Seashells");
-        cust2.setAddress("1 Seashore");
-        cust2.setGarbageDay("Monday");
-        cust2.setPhoneNumber("987654321");
-        cust2.setSubscriptionInfo("Until June");
-        cust2.setSpecialNotes("dont accepts seashells");
-        cust2.setEmail("c-shell@ocean.com");
-        testList.add(cust2);
-        Customer cust3 = new Customer();
-        cust3.setFirstName("Ms.");
-        cust3.setLastName("Pacman");
-        cust3.setAddress("the Arcade");
-        cust3.setGarbageDay("Monday");
-        cust3.setPhoneNumber("8675309");
-        cust3.setSubscriptionInfo("Until May");
-        cust3.setSpecialNotes("MR PACMAN GETS JEALOUS!!!!");
-        cust3.setEmail("i8ghosts@games.com");
-        testList.add(cust3);
-
-        return testList;
     }
 }

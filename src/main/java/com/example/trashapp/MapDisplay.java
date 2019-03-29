@@ -1,14 +1,21 @@
 package com.example.trashapp;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,6 +24,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -38,9 +47,10 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
     private OnFragmentInteractionListener mListener;
 
-    GoogleMap mGoogleMap;
-    MapView mMapView;
-    View mView;
+    private GoogleMap mGoogleMap;
+    private MapView mMapView;
+    private View mView;
+
 
 
     public MapDisplay() {
@@ -71,6 +81,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    private void setUpMapIfNeeded(){
+        if (mGoogleMap == null){
+
         }
     }
 
@@ -125,11 +141,27 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        //googleMap.addMarker(new MarkerOptions().position(new LatLng(40.345345345,-45.3345345)).title("HIIII").snippet("I am"));
+        try {
+            Task<Location> locationResult = LocationServices.getFusedLocationProviderClient(getContext()).getLastLocation();
+            locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        Location mLastKnownLocation = (Location) task.getResult();
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 100));
+                    }
+                }
+            });
+        }
+        catch(SecurityException e) {
+            Log.e("MapDisplay", "Can't get the location");
+        }
 
-        //CameraPosition prac = CameraPosition.builder().target(new LatLng(40.345345345,-45.3345345)).zoom(16).bearing(0).tilt(45).build();
-
-        //googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(prac));
+//        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.345345345,-45.3345345)).title("HIIII").snippet("I am"));
+////
+////        CameraPosition prac = CameraPosition.builder().target(new LatLng(40.345345345,-45.3345345)).zoom(0).bearing(0).tilt(45).build();
+////
+////        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(prac));
     }
 
     /**
@@ -146,4 +178,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+//    private void getLocationPermission(){
+//        if(ContextCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//            boolean mLocationPermissionGranted = true;
+//        }else {
+//            ActivityCompat.requestPermissions(this, new String [] {Manifest.permission.ACCESS_FINE_LOCATION}, Permission);
+//        }
+//    }
 }

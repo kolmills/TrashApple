@@ -5,14 +5,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.trashapp.BackgroundWorker.customerList;
+import static com.example.trashapp.BackgroundWorker.myRef;
 
 
 /**
@@ -35,8 +44,10 @@ public class TicketListFragment extends ListFragment {
     private static List<Ticket> ticketList = new ArrayList<>();
     private static List<Customer> customers = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
-
+    private ArrayList<String> ticketnums = new ArrayList<>();
     OnHeadlineSelectedListener callback;
+    ArrayAdapter<String> listViewAdapter;
+    ListView listView;
 
     public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
         callback = activity;
@@ -74,21 +85,55 @@ public class TicketListFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
+
+
+
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
         //String[] menuItems = {"cat", "dog", "mexican", "hotdog"};
         //menuItems[2] = customers.get(0).getFirstName();
-        ListView listView = (ListView) view.findViewById(android.R.id.list);
+         listView = (ListView) view.findViewById(android.R.id.list);
         //listView.setAdapter(null);
         //List y = MainActivity.backgroundWorker.getTicketList();
-        String[] ticketnums = new String[customers.size()];
-        for (int i = 0; i < customers.size();i++){
-            ticketnums[i] = "Ticket: " + (i+1);
-        }
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_1, ticketnums);
+
+
+        //listViewAdapter = new ArrayAdapter<String>(
+        //        getActivity(), android.R.layout.simple_list_item_1, ticketnums);
 
 
         listView.setAdapter(listViewAdapter);
+        myRef.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
+                listView.setAdapter(listViewAdapter);
+                int i = 0;
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    //Getting the data from snapshot
+                    listViewAdapter.notifyDataSetChanged();
+
+                    GenericTypeIndicator<ArrayList<Customer>> t = new GenericTypeIndicator<ArrayList<Customer>>() {};
+                    ArrayList<Customer> Array = postSnapshot.getValue(t);
+                    MainActivity.backgroundWorker.setCustomerList(Array);
+
+                    for(int h = 0; h < Array.size(); h++) {
+
+
+                        ticketnums.add(Array.get(h).getFirstName() + " "+ Array.get(h).getLastName());
+                    }
+                    i++;
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Database error:","Could not connect!");
+            }
+
+        });
+
         return view;
     }
 
@@ -135,6 +180,9 @@ public class TicketListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // Send the event to the host activity
+        Customer c =(Customer) MainActivity.backgroundWorker.getCustomerList().get(position);
+        MainActivity.backgroundWorker.setCurrentCustomer(position);
+        MainActivity.currentTicket = c.getTicketList().get(0);
         callback.onArticleSelected(position);
     }
 
