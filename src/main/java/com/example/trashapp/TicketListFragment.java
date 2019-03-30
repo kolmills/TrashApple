@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.example.trashapp.BackgroundWorker.customerList;
 import static com.example.trashapp.BackgroundWorker.myRef;
 
@@ -82,7 +83,8 @@ public class TicketListFragment extends ListFragment {
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(listViewAdapter);
-        myRef.addValueEventListener(new ValueEventListener(){
+        final ArrayList<Customer> Array = new ArrayList<>();
+        myRef.child("CustomerSet").addValueEventListener(new ValueEventListener(){
 
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -91,13 +93,12 @@ public class TicketListFragment extends ListFragment {
                 int i = 0;
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     //Getting the data from snapshot
+                    Log.v(TAG,""+ postSnapshot.child("CustomerSet").getKey()); //displays the key for the node
                     listViewAdapter.notifyDataSetChanged();
-                    GenericTypeIndicator<ArrayList<Customer>> t = new GenericTypeIndicator<ArrayList<Customer>>() {};
-                    ArrayList<Customer> Array = postSnapshot.getValue(t);
+                    Customer test = postSnapshot.getValue(Customer.class);
+                    Array.add(test);
                     MainActivity.backgroundWorker.setCustomerList(Array);
-                    for(int h = 0; h < Array.size(); h++) {
-                        ticketnums.add(Array.get(h).getFirstName() + " "+ Array.get(h).getLastName());
-                    }
+                    listViewAdapter.add(test.getFirstName() + " " + test.getLastName());
                     i++;
                 }
 

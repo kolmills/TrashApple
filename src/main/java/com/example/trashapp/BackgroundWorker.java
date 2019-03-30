@@ -66,7 +66,7 @@ public class BackgroundWorker {
 
         myRef = database.getReference("Database");
         myRef1 = database.getReference("Database").child("Customers");
-        customerList = getCustomerList();
+        //customerList = getCustomerList();
         testList = createCustomerList();
             }
 
@@ -145,10 +145,21 @@ public class BackgroundWorker {
      * or updating a current one
      */
     public static void saveTicket(){
-        //customerList.set(currentTicketPosition, currentCustomer);
+        ArrayList<Customer> temp = new ArrayList<>();
+        customerList.set(currentTicketPosition, currentCustomer);
 
+        Customer cust1 = new Customer();
+        cust1.setFirstName("George");
+        cust1.setLastName("Fiveman");
+        cust1.setAddress("1234 goAway");
+        cust1.setGarbageDay("Monday");
+        cust1.setPhoneNumber("12345678");
+        cust1.setSubscriptionInfo("Until July");
+        cust1.setSpecialNotes("has dog");
+        cust1.setEmail("george@foreman.com");
 
-        myRef.child("Customers").setValue(customerList);
+        myRef.child(cust1.getPhoneNumber()).setValue(cust1);
+
     }
 
     public Ticket createSampleTicket(){
@@ -196,7 +207,11 @@ public class BackgroundWorker {
             cust3.setEmail("i8ghosts@games.com");
         cust3.setTicketList(test);
             testList.add(cust3);
-        myRef.child("Customers").setValue(testList);
+           // for (int i = 0; i < testList.size(); i++){
+            //    myRef.child("CustomerSet").child(testList.get(i).getPhoneNumber()).setValue(testList.get(i));
+            //}
+
+       // myRef.child("Customers").setValue(testList);
             return testList;
 
     }
