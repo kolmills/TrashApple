@@ -180,7 +180,7 @@ public class BackgroundWorker {
             Customer cust1 = new Customer();
             cust1.setFirstName("George");
             cust1.setLastName("Foreman");
-            cust1.setAddress("1234 goAway");
+            cust1.setAddress("151 W Main St, Rigby, ID 83442");
             cust1.setGarbageDay("Monday");
             cust1.setPhoneNumber("12345678");
             cust1.setSubscriptionInfo("Until July");
@@ -191,7 +191,7 @@ public class BackgroundWorker {
             Customer cust2 = new Customer();
             cust2.setFirstName("Sally");
             cust2.setLastName("Seashells");
-            cust2.setAddress("1 Seashore");
+            cust2.setAddress("602 Sundance, Rigby, ID 83442");
             cust2.setGarbageDay("Monday");
             cust2.setPhoneNumber("987654321");
             cust2.setSubscriptionInfo("Until June");
@@ -202,7 +202,7 @@ public class BackgroundWorker {
             Customer cust3 = new Customer();
             cust3.setFirstName("Ms.");
             cust3.setLastName("Pacman");
-            cust3.setAddress("the Arcade");
+            cust3.setAddress("593 caribou street, Rigby, ID");
             cust3.setGarbageDay("Monday");
             cust3.setPhoneNumber("8675309");
             cust3.setSubscriptionInfo("Until May");

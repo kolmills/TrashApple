@@ -48,7 +48,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
-    private List<Ticket> tempTicketList = new ArrayList<>();
+    private List<Customer> tempTicketList = new ArrayList<>();
     private List<Marker> markerList = new ArrayList<Marker>();
     private boolean mLocationPermissionGranted;
 
@@ -136,12 +136,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
         if (!markerList.isEmpty()){ markerList.clear(); }
-        if (!MainActivity.backgroundWorker.getTicketList().isEmpty()) {tempTicketList = MainActivity.backgroundWorker.getTicketList();}
-        for (int i = 0; i <= tempTicketList.size(); i++){
+        //if (!MainActivity.backgroundWorker.getCustomerList().isEmpty()) {tempTicketList = MainActivity.backgroundWorker.customerList;}
+        for (int i = 0; i < MainActivity.backgroundWorker.customerList.size(); i++){
             Marker tempMarker;
             tempMarker = googleMap.addMarker(new MarkerOptions()
-                    .position(getLocationFromAddress(getContext(), "593 caribou street, Rigby, ID"))
-                    .title("Jordans"));
+                    .position(getLocationFromAddress(getContext(), MainActivity.backgroundWorker.customerList.get(i).getAddress()))
+                    .title(MainActivity.backgroundWorker.customerList.get(i).getLastName()));
             tempMarker.setTag(0);
             markerList.add(i, tempMarker);
         }//googleMap.addMarker(markerList.get(0).);
