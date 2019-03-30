@@ -145,20 +145,23 @@ public class BackgroundWorker {
      * or updating a current one
      */
     public static void saveTicket(){
-        ArrayList<Customer> temp = new ArrayList<>();
         customerList.set(currentTicketPosition, currentCustomer);
-
+        Ticket t = new Ticket();
+        ArrayList<Ticket> test = new ArrayList<>();
+        test.add(t);
         Customer cust1 = new Customer();
-        cust1.setFirstName("George");
-        cust1.setLastName("Fiveman");
+        cust1.setFirstName(currentCustomer.getFirstName());
+        cust1.setLastName(currentCustomer.getLastName());
         cust1.setAddress("1234 goAway");
         cust1.setGarbageDay("Monday");
         cust1.setPhoneNumber("12345678");
         cust1.setSubscriptionInfo("Until July");
         cust1.setSpecialNotes("has dog");
         cust1.setEmail("george@foreman.com");
+        cust1.setTicketList(test);
 
-        myRef.child(cust1.getPhoneNumber()).setValue(cust1);
+        myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).removeValue();
+        myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).setValue(cust1);
 
     }
 
@@ -207,9 +210,9 @@ public class BackgroundWorker {
             cust3.setEmail("i8ghosts@games.com");
         cust3.setTicketList(test);
             testList.add(cust3);
-           // for (int i = 0; i < testList.size(); i++){
-            //    myRef.child("CustomerSet").child(testList.get(i).getPhoneNumber()).setValue(testList.get(i));
-            //}
+            for (int i = 0; i < testList.size(); i++){
+               myRef.child("CustomerSet").child(testList.get(i).getPhoneNumber()).setValue(testList.get(i));
+           }
 
        // myRef.child("Customers").setValue(testList);
             return testList;

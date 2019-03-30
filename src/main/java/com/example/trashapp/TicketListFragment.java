@@ -97,7 +97,7 @@ public class TicketListFragment extends ListFragment {
                     listViewAdapter.notifyDataSetChanged();
                     Customer test = postSnapshot.getValue(Customer.class);
                     Array.add(test);
-                    MainActivity.backgroundWorker.setCustomerList(Array);
+                    MainActivity.backgroundWorker.customerList = Array;
                     listViewAdapter.add(test.getFirstName() + " " + test.getLastName());
                     i++;
                 }

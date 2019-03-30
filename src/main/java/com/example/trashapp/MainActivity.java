@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         EditText subDay = findViewById(R.id.subscribeDateSave);
         backgroundWorker.currentCustomer.setSubscriptionInfo(subDay.getText().toString());
 
-        customerList.set(currentTicketPosition, currentCustomer);
+        backgroundWorker.customerList.set(currentTicketPosition, currentCustomer);
         BackgroundWorker.saveTicket();
         Log.i("info", "Customer Saved!!");
     }
