@@ -1,5 +1,6 @@
 package com.example.trashapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer{
@@ -12,7 +13,7 @@ public class Customer{
     private String subscriptionInfo;
     private String email;
     private String phoneNumber;
-    private List<Ticket> ticketList;
+    private ArrayList<Ticket> ticketList;
 
 
     public Customer() {
@@ -26,7 +27,7 @@ public class Customer{
         this.phoneNumber = "";
     }
 
-    public Customer(String firstName, String lastName, String address, String garbageDay, String specialNotes, String subscriptionInfo, String email, String phoneNumber, List<Ticket> ticketList) {
+    public Customer(String firstName, String lastName, String address, String garbageDay, String specialNotes, String subscriptionInfo, String email, String phoneNumber, ArrayList<Ticket> ticketList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -102,7 +103,11 @@ public class Customer{
         this.phoneNumber = phoneNumber;
     }
 
-    public Ticket getTicket() {
-        Ticket  currentTicket = new Ticket();
-        return currentTicket;}
+    public List<Ticket> getTicketList() {
+
+        return this.ticketList;
+    }
+    public void setTicketList(ArrayList<Ticket> ticketList) {
+        this.ticketList = ticketList;
+    }
 }
