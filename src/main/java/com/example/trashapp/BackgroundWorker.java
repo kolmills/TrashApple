@@ -34,7 +34,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class BackgroundWorker {
 
-
     public static ArrayList<Customer> customerList;
     private Employee employeeObject;
     private Map mapObject;
@@ -50,10 +49,7 @@ public class BackgroundWorker {
     static FirebaseDatabase database;
     public static DatabaseReference myRef;
     DatabaseReference myRef1;
-
     DatabaseReference newChildRef;
-
-
 
     BackgroundWorker(Context tree){
         FirebaseOptions options = new FirebaseOptions.Builder()
@@ -70,9 +66,8 @@ public class BackgroundWorker {
 
         myRef = database.getReference("Database");
         myRef1 = database.getReference("Database").child("Customers");
-        customerList = getCustomerList();
-// Write a message to the database
-        //testList = createCustomerList();
+        //customerList = getCustomerList();
+        testList = createCustomerList();
             }
 
     public void setCurrentCustomer(int position) {
@@ -90,16 +85,20 @@ public class BackgroundWorker {
     public Employee getEmployeeObject(String employeeID) {
         return employeeObject;
     }
+
     public void setEmployeeObject(Employee employeeObject) {
         this.employeeObject = employeeObject;
     }
+
     public Customer getCustomerObject(int position) {
         return customerList.get(position);
 
     }
+
     public List getMapList() {
         return mapList;
     }
+
     public void setMapList(List mapList) {
         this.mapList = mapList;
     }
@@ -146,16 +145,29 @@ public class BackgroundWorker {
      * or updating a current one
      */
     public static void saveTicket(){
-        //customerList.set(currentTicketPosition, currentCustomer);
+        ArrayList<Customer> temp = new ArrayList<>();
+        customerList.set(currentTicketPosition, currentCustomer);
 
+        Customer cust1 = new Customer();
+        cust1.setFirstName("George");
+        cust1.setLastName("Fiveman");
+        cust1.setAddress("1234 goAway");
+        cust1.setGarbageDay("Monday");
+        cust1.setPhoneNumber("12345678");
+        cust1.setSubscriptionInfo("Until July");
+        cust1.setSpecialNotes("has dog");
+        cust1.setEmail("george@foreman.com");
 
-        myRef.child("Customers").setValue(customerList);
+        myRef.child(cust1.getPhoneNumber()).setValue(cust1);
+
     }
+
     public Ticket createSampleTicket(){
         Ticket t = new Ticket();
         t.setSpecialNotes("HAS TO POOP");
         return t;
     }
+
     public ArrayList createCustomerList(){
         final ArrayList<Customer> testList = new ArrayList<>();
        //myRef.child("Customers").setValue(testList);
@@ -195,7 +207,11 @@ public class BackgroundWorker {
             cust3.setEmail("i8ghosts@games.com");
         cust3.setTicketList(test);
             testList.add(cust3);
-        myRef.child("Customers").setValue(testList);
+           // for (int i = 0; i < testList.size(); i++){
+            //    myRef.child("CustomerSet").child(testList.get(i).getPhoneNumber()).setValue(testList.get(i));
+            //}
+
+       // myRef.child("Customers").setValue(testList);
             return testList;
 
     }

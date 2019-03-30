@@ -59,10 +59,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
          */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             Fragment selectedFragment = null;
-
-
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
@@ -184,21 +181,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         }
 
     /**
-     * updates the ticket list from the database
-     * @param view the button pressed to activate it
-     */
-    public void updateTicketList(View view) {
-            //LOGIC FOR UPDATING THE TICKETLIST
-
-    }
-
-    /**
      * gets all of the values from the ticketeditor and saves them to the current ticket
      * @param view the view of the button to be pressed
      */
     public void saveTicketInfo(View view) {
 
-        myRef.child("Customers").setValue(customerList);
+
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText note = findViewById(R.id.specialnoteSave);
         currentCustomer.setSpecialNotes(note.getText().toString());
@@ -222,9 +210,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         currentCustomer.setGarbageDay(garbDay.getText().toString());
 
         EditText subDay = findViewById(R.id.subscribeDateSave);
-        currentCustomer.setSubscriptionInfo(subDay.getText().toString());
+        backgroundWorker.currentCustomer.setSubscriptionInfo(subDay.getText().toString());
 
-        //customerList.set(currentTicketPosition, currentCustomer);
+        customerList.set(currentTicketPosition, currentCustomer);
         BackgroundWorker.saveTicket();
         Log.i("info", "Customer Saved!!");
     }
@@ -255,13 +243,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         customer = backgroundWorker.getCustomerObject(position);
         currentTicket.setCustomer(customer);
     }
-
-    /** public void runTest(View view) {
-         Intent obtainID = new Intent(this, EnterEmployeeID.class);
-         startActivity(obtainID);
-
-         }*/
-
 
     @Override
     public void onAttachFragment(Fragment fragment) {
