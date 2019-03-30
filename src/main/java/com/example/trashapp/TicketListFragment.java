@@ -84,12 +84,13 @@ public class TicketListFragment extends ListFragment {
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(listViewAdapter);
         final ArrayList<Customer> Array = new ArrayList<>();
+        listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
+        listView.setAdapter(listViewAdapter);
         myRef.child("CustomerSet").addValueEventListener(new ValueEventListener(){
 
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
-                listView.setAdapter(listViewAdapter);
+
                 int i = 0;
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     //Getting the data from snapshot

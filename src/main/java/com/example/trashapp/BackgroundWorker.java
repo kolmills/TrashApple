@@ -148,18 +148,25 @@ public class BackgroundWorker {
         customerList.set(currentTicketPosition, currentCustomer);
         Ticket t = new Ticket();
         ArrayList<Ticket> test = new ArrayList<>();
-        test.add(t);
+
         Customer cust1 = new Customer();
         cust1.setFirstName(currentCustomer.getFirstName());
         cust1.setLastName(currentCustomer.getLastName());
-        cust1.setAddress("1234 goAway");
-        cust1.setGarbageDay("Monday");
-        cust1.setPhoneNumber("12345678");
-        cust1.setSubscriptionInfo("Until July");
-        cust1.setSpecialNotes("has dog");
-        cust1.setEmail("george@foreman.com");
+        cust1.setAddress(currentCustomer.getAddress());
+        cust1.setGarbageDay(currentCustomer.getGarbageDay());
+        cust1.setPhoneNumber(currentCustomer.getPhoneNumber());
+        cust1.setSubscriptionInfo(currentCustomer.getSubscriptionInfo());
+        cust1.setSpecialNotes(currentCustomer.getSpecialNotes());
+        cust1.setEmail(currentCustomer.getEmail());
+        Ticket w = new Ticket();
+        for (int i = 0; i < currentCustomer.getTicketList().size(); i++){
+            w.setSpecialNotes(currentCustomer.getTicketList().get(i).getSpecialNotes());
+            w.setDate(currentCustomer.getTicketList().get(i).getDate());
+            w.setStatus(currentCustomer.getTicketList().get(i).getStatus());
+            test.add(w);
+        }
+       // cust1.setTicketList(currentCustomer.getTicketList());
         cust1.setTicketList(test);
-
         myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).removeValue();
         myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).setValue(cust1);
 
