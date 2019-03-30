@@ -1,6 +1,7 @@
 package com.example.trashapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,13 +82,40 @@ public class TicketListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ticket_list, container, false);
+
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(listViewAdapter);
         final ArrayList<Customer> Array = new ArrayList<>();
         listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
         listView.setAdapter(listViewAdapter);
+
+
+        final Switch onOffSwitch = (Switch)  view.findViewById(R.id.switch1);
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                listViewAdapter.clear();
+                if (isChecked){
+                    for (int i = 0; i < Array.size(); i++)
+
+                        listViewAdapter.add(Array.get(i).getFirstName() + " " + Array.get(i).getLastName());
+                    Log.v("Switch State=", ""+isChecked);
+                }
+                else{
+                    for (int i = 0; i < Array.size(); i++)
+                        if (Array.get(i).getTicketList().get(0).getStatus())
+                        listViewAdapter.add(Array.get(i).getFirstName() + " " + Array.get(i).getLastName());
+                    Log.v("Switch State=", ""+isChecked);
+                }
+
+                listViewAdapter.notifyDataSetChanged();
+            }
+
+        });
+
+
         myRef.child("CustomerSet").addValueEventListener(new ValueEventListener(){
 
             @Override
@@ -97,9 +127,15 @@ public class TicketListFragment extends ListFragment {
                     Log.v(TAG,""+ postSnapshot.child("CustomerSet").getKey()); //displays the key for the node
                     listViewAdapter.notifyDataSetChanged();
                     Customer test = postSnapshot.getValue(Customer.class);
+                    ArrayList<Ticket> u = test.getTicketList();
                     Array.add(test);
-                    MainActivity.backgroundWorker.customerList = Array;
-                    listViewAdapter.add(test.getFirstName() + " " + test.getLastName());
+                    Ticket b = u.get(0);
+                    if (!b.getStatus()){
+                        MainActivity.backgroundWorker.customerList = Array;
+                        listViewAdapter.add(test.getFirstName() + " " + test.getLastName());
+                    }
+
+
                     i++;
                 }
 
