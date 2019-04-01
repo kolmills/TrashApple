@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 
@@ -92,6 +93,11 @@ public class CurrentTicketView extends Fragment {
         /***/
         TextView currentSubscription = (TextView) RootView.findViewById(R.id.currentCustomerSubscriptionInfo);
         currentSubscription.setText(customer.getSubscriptionInfo());
+
+        CheckBox checkBox = (CheckBox) RootView.findViewById(R.id.ticketDONE);
+        if (customer.getTicketList().get(0).getStatus()) {
+            checkBox.setChecked(true);
+        }
 
         return RootView;
 
