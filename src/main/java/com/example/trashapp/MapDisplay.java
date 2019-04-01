@@ -1,8 +1,9 @@
 package com.example.trashapp;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,11 +22,16 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -36,20 +42,15 @@ import com.google.android.gms.tasks.Task;
 // * create an instance of this fragment.
 // */
 public class MapDisplay extends Fragment implements OnMapReadyCallback {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
+    private List<Customer> tempTicketList = new ArrayList<>();
+    private List<Marker> markerList = new ArrayList<Marker>();
+    private boolean mLocationPermissionGranted;
 
 
 
@@ -69,8 +70,6 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     public static MapDisplay newInstance(String param1, String param2) {
         MapDisplay fragment = new MapDisplay();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,10 +77,18 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+//        // Construct a GeoDataClient.
+//        mGeoDataClient = Places.getGeoDataClient(this, null);
+//
+//        // Construct a PlaceDetectionClient.
+//        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
+//
+//        // Construct a FusedLocationProviderClient.
+//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+        getLocationPermission();
     }
 
     private void setUpMapIfNeeded(){
@@ -109,37 +116,47 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
             mMapView.getMapAsync(this);
         }
     }
-
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        @Override
+        public void onDetach() {
+            super.onDetach();
+            mListener = null;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
-
+        if (!markerList.isEmpty()){ markerList.clear(); }
+        //if (!MainActivity.backgroundWorker.getCustomerList().isEmpty()) {tempTicketList = MainActivity.backgroundWorker.customerList;}
+        for (int i = 0; i < MainActivity.backgroundWorker.customerList.size(); i++){
+            Marker tempMarker;
+            tempMarker = googleMap.addMarker(new MarkerOptions()
+                    .position(getLocationFromAddress(getContext(), MainActivity.backgroundWorker.customerList.get(i).getAddress()))
+                    .title(MainActivity.backgroundWorker.customerList.get(i).getLastName()));
+            tempMarker.setTag(0);
+            markerList.add(i, tempMarker);
+        }//googleMap.addMarker(markerList.get(0).);
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        updateUI();
+
+    }
+
+    private void updateUI() {
+
+        if(mGoogleMap == null){
+            return;
+        }
 
         try {
             Task<Location> locationResult = LocationServices.getFusedLocationProviderClient(getContext()).getLastLocation();
@@ -156,12 +173,6 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         catch(SecurityException e) {
             Log.e("MapDisplay", "Can't get the location");
         }
-
-//        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.345345345,-45.3345345)).title("HIIII").snippet("I am"));
-////
-////        CameraPosition prac = CameraPosition.builder().target(new LatLng(40.345345345,-45.3345345)).zoom(0).bearing(0).tilt(45).build();
-////
-////        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(prac));
     }
 
     /**
@@ -178,12 +189,61 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        }
+    }
 
-//    private void getLocationPermission(){
-//        if(ContextCompat.checkSelfPermission(getContext().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-//            boolean mLocationPermissionGranted = true;
-//        }else {
-//            ActivityCompat.requestPermissions(this, new String [] {Manifest.permission.ACCESS_FINE_LOCATION}, Permission);
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+        updateUI();
+    }
+
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address = new ArrayList<>();
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 }
