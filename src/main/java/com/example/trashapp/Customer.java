@@ -1,7 +1,6 @@
 package com.example.trashapp;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Customer{
 
@@ -103,7 +102,7 @@ public class Customer{
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Ticket> getTicketList() {
+    public ArrayList<Ticket> getTicketList() {
 
         return this.ticketList;
     }

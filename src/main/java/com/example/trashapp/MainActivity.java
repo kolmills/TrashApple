@@ -12,10 +12,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     public static Ticket currentTicket;
     public static String mainEmployeeID;
     CurrentTicketView CT;
-
+    public static Switch simpleSwitch;
 
 
 
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
                 case R.id.navigation_TicketList:
                     //backgroundWorker.getTicketList();
+
                     FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                     selectedFragment = TicketListFragment.newInstance(backgroundWorker.getTicketList());
                     transaction4.replace(R.id.content, selectedFragment);
@@ -126,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             customer = new Customer();
             currentTicket = new Ticket();
            // customerList = createCustomerList();
+            simpleSwitch = (Switch) findViewById(R.id.switch1);
+
+
 
 
             /**SETS UP THE FRAGMENTS*/
@@ -217,6 +223,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         Log.i("info", "Customer Saved!!");
     }
 
+    public static void updateSwitch(){
+        Boolean switchState = simpleSwitch.isChecked();
+    }
+
     /**
      * uploads everytihng in the ticketlist to the database
      * @param view the button pressed to activate it
@@ -235,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      */
     public void onCheckboxClicked(View view) {
             currentTicket.setStatus(((CheckBox) view).isChecked());
+            BackgroundWorker.saveTicket();
     }
 
     @Override

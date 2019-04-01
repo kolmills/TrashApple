@@ -19,6 +19,13 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Show Completed Tickets" />
+
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
@@ -28,14 +35,6 @@
             android:contextClickable="true"
             android:divider="?attr/dividerHorizontal"
             android:scrollIndicators="right" />
-
-        <Button
-            android:id="@+id/updateTicketListButton"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:onClick="getTicketList"
-            android:text="Update Ticket List" />
 
     </LinearLayout>
 
