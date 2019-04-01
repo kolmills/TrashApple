@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             FirebaseApp.initializeApp(this);
             backgroundWorker = new BackgroundWorker(this);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, HomeScreen.newInstance("What","Ever"));
+            transaction.replace(R.id.content, TicketListFragment.newInstance(backgroundWorker.getTicketList()));
             transaction.commit();
             /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = findViewById(R.id.navigation);
