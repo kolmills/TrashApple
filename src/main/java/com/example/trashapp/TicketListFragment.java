@@ -52,7 +52,6 @@ public class TicketListFragment extends ListFragment {
     OnHeadlineSelectedListener callback;
     ArrayAdapter<String> listViewAdapter;
     ListView listView;
-
     public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
         callback = activity;
     }
@@ -87,6 +86,7 @@ public class TicketListFragment extends ListFragment {
         listView = (ListView) view.findViewById(android.R.id.list);
         listView.setAdapter(listViewAdapter);
         final ArrayList<Customer> Array = new ArrayList<>();
+        final ArrayList<Customer> Array1 = new ArrayList<>();
         listViewAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,ticketnums);
         listView.setAdapter(listViewAdapter);
 
@@ -98,15 +98,16 @@ public class TicketListFragment extends ListFragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 listViewAdapter.clear();
                 if (isChecked){
+                    MainActivity.backgroundWorker.customerList = Array;
                     for (int i = 0; i < Array.size(); i++)
 
                         listViewAdapter.add(Array.get(i).getFirstName() + " " + Array.get(i).getLastName());
                     Log.v("Switch State=", ""+isChecked);
                 }
                 else{
-                    for (int i = 0; i < Array.size(); i++)
-                        if (Array.get(i).getTicketList().get(0).getStatus())
-                        listViewAdapter.add(Array.get(i).getFirstName() + " " + Array.get(i).getLastName());
+                    MainActivity.backgroundWorker.customerList = Array1;
+                    for (int i = 0; i < Array1.size(); i++)
+                        listViewAdapter.add(Array1.get(i).getFirstName() + " " + Array1.get(i).getLastName());
                     Log.v("Switch State=", ""+isChecked);
                 }
 
@@ -129,9 +130,11 @@ public class TicketListFragment extends ListFragment {
                     Customer test = postSnapshot.getValue(Customer.class);
                     ArrayList<Ticket> u = test.getTicketList();
                     Array.add(test);
+                    MainActivity.backgroundWorker.customerList = Array1;
                     Ticket b = u.get(0);
                     if (!b.getStatus()){
-                        MainActivity.backgroundWorker.customerList = Array;
+                        Array1.add(test);
+                        MainActivity.backgroundWorker.customerList = Array1;
                         listViewAdapter.add(test.getFirstName() + " " + test.getLastName());
                     }
 
