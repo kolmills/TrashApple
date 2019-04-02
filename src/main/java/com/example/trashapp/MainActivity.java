@@ -85,12 +85,14 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     return true;
                 case R.id.navigation_Map:
 
-                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                    selectedFragment = MapDisplay.newInstance("Andy", "James");
-                    transaction3.replace(R.id.content, selectedFragment);
-                    transaction3.commit();
-
-                    return true;
+                    if(customer.getTicketList() != null) {
+                        FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                        selectedFragment = MapDisplay.newInstance("Andy", "James");
+                        transaction3.replace(R.id.content, selectedFragment);
+                        transaction3.commit();
+                        return true;
+                    }
+                    return false;
 
                 case R.id.navigation_TicketList:
                     //backgroundWorker.getTicketList();
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
             /**if there is no previous instance of the employees ID*/
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);

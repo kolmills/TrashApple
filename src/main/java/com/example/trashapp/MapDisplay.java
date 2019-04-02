@@ -91,12 +91,6 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         getLocationPermission();
     }
 
-    private void setUpMapIfNeeded(){
-        if (mGoogleMap == null){
-
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -165,7 +159,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
                         Location mLastKnownLocation = (Location) task.getResult();
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 100));
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 15.0f));
                     }
                 }
             });
