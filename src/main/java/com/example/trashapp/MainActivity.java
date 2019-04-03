@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      */
     public void saveTicketInfo(View view) {
 
-
             //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
         EditText note = findViewById(R.id.specialnoteSave);
         currentCustomer.setSpecialNotes(note.getText().toString());
@@ -227,7 +226,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         BackgroundWorker.saveTicket();
 
         //Add a toast displaying the info
-        Toast toast = Toast.makeText(getApplicationContext(), "The information has been saved", Toast.LENGTH_SHORT);
+        Toast toast=Toast.makeText(getApplicationContext(),"Ticket Updated!",Toast.LENGTH_SHORT);
+        toast.setMargin(50,50);
         toast.show();
 
         Log.i("info", "Customer Saved!!");
@@ -245,8 +245,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             //Logic for uploading to our database
         Log.i("info", "Uploading to Database");
         BackgroundWorker.saveTicket();
-
-
+        Log.i("info", "Upload successful!");
     }
 
     /**
