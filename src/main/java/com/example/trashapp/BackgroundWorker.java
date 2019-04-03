@@ -73,7 +73,8 @@ public class BackgroundWorker {
         myRef = database.getReference("Database");
         myRef1 = database.getReference("Database").child("Customers");
         //customerList = getCustomerList();
-        testList = createCustomerList();
+        createCustomerList();
+
             }
 
     public void setCurrentCustomer(int position) {
@@ -151,30 +152,32 @@ public class BackgroundWorker {
      * or updating a current one
      */
     public static void saveTicket(){
-        customerList.set(currentTicketPosition, currentCustomer);
-        Ticket t = new Ticket();
-        ArrayList<Ticket> test = new ArrayList<>();
+        if (currentCustomer.getPhoneNumber().length() > 1) {
+            customerList.set(currentTicketPosition, currentCustomer);
+            Ticket t = new Ticket();
+            ArrayList<Ticket> test = new ArrayList<>();
 
-        Customer cust1 = new Customer();
-        cust1.setFirstName(currentCustomer.getFirstName());
-        cust1.setLastName(currentCustomer.getLastName());
-        cust1.setAddress(currentCustomer.getAddress());
-        cust1.setGarbageDay(currentCustomer.getGarbageDay());
-        cust1.setPhoneNumber(currentCustomer.getPhoneNumber());
-        cust1.setSubscriptionInfo(currentCustomer.getSubscriptionInfo());
-        cust1.setSpecialNotes(currentCustomer.getSpecialNotes());
-        cust1.setEmail(currentCustomer.getEmail());
-        Ticket w = new Ticket();
-        for (int i = 0; i < currentCustomer.getTicketList().size(); i++){
-            w.setSpecialNotes(currentCustomer.getTicketList().get(i).getSpecialNotes());
-            w.setDate(currentCustomer.getTicketList().get(i).getDate());
-            w.setStatus(currentCustomer.getTicketList().get(i).getStatus());
-            test.add(w);
+            Customer cust1 = new Customer();
+            cust1.setFirstName(currentCustomer.getFirstName());
+            cust1.setLastName(currentCustomer.getLastName());
+            cust1.setAddress(currentCustomer.getAddress());
+            cust1.setGarbageDay(currentCustomer.getGarbageDay());
+            cust1.setPhoneNumber(currentCustomer.getPhoneNumber());
+            cust1.setSubscriptionInfo(currentCustomer.getSubscriptionInfo());
+            cust1.setSpecialNotes(currentCustomer.getSpecialNotes());
+            cust1.setEmail(currentCustomer.getEmail());
+            Ticket w = new Ticket();
+            for (int i = 0; i < currentCustomer.getTicketList().size(); i++) {
+                w.setSpecialNotes(currentCustomer.getTicketList().get(i).getSpecialNotes());
+                w.setDate(currentCustomer.getTicketList().get(i).getDate());
+                w.setStatus(currentCustomer.getTicketList().get(i).getStatus());
+                test.add(w);
+            }
+            // cust1.setTicketList(currentCustomer.getTicketList());
+            cust1.setTicketList(test);
+            myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).removeValue();
+            myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).setValue(cust1);
         }
-       // cust1.setTicketList(currentCustomer.getTicketList());
-        cust1.setTicketList(test);
-        myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).removeValue();
-        myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).setValue(cust1);
 
     }
 
