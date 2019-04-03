@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 
@@ -223,6 +224,11 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
         backgroundWorker.customerList.set(currentTicketPosition, currentCustomer);
         BackgroundWorker.saveTicket();
+
+        //Add a toast displaying the info
+        Toast toast = Toast.makeText(getApplicationContext(), "The information has been saved", Toast.LENGTH_SHORT);
+        toast.show();
+
         Log.i("info", "Customer Saved!!");
     }
 
