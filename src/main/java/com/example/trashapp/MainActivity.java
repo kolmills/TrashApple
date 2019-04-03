@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP CURRENT VARIABLES*/
             customer = new Customer();
             currentTicket = new Ticket();
-
            // customerList = createCustomerList();
             simpleSwitch = (Switch) findViewById(R.id.switch1);
 
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP THE FRAGMENTS*/
             FirebaseApp.initializeApp(this);
             backgroundWorker = new BackgroundWorker(this);
-
            // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
            // transaction.replace(R.id.content, TicketListFragment.newInstance(backgroundWorker.getTicketList()));
             //transaction.commit();
@@ -224,7 +222,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         backgroundWorker.currentCustomer.setSubscriptionInfo(subDay.getText().toString());
 
         backgroundWorker.customerList.set(currentTicketPosition, currentCustomer);
+
         BackgroundWorker.saveTicket();
+
+
 
         //Add a toast displaying the info
         Toast toast = Toast.makeText(getApplicationContext(), "The information has been saved", Toast.LENGTH_SHORT);
