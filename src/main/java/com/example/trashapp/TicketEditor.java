@@ -67,7 +67,7 @@ public class TicketEditor extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_ticket_editor, container, false);
         View RootView = inflater.inflate(R.layout.fragment_ticket_editor, container, false);
-        Customer customer = MainActivity.currentTicket.getCustomer();
+        Customer customer = MainActivity.backgroundWorker.currentCustomer;
         //SET ALL THE VALUES TO WHAT THEY CURRENTLY ARE
         TextView currentNotes = (TextView) RootView.findViewById(R.id.specialnoteSave);
         currentNotes.setText(customer.getSpecialNotes());

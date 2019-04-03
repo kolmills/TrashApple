@@ -61,7 +61,13 @@ public class BackgroundWorker {
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
         //myRef1 = database.getReference("Customer");
-
+        currentCustomer = new Customer();
+        currentCustomer.setFirstName("Please select");
+        currentCustomer.setLastName("a ticket");
+        Ticket nullTicket = new Ticket();
+        ArrayList<Ticket> nullTicketList = new ArrayList<>();
+        nullTicketList.add(nullTicket);
+        currentCustomer.setTicketList(nullTicketList);
 
 
         myRef = database.getReference("Database");

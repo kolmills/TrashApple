@@ -99,13 +99,17 @@ public class TicketListFragment extends ListFragment {
                 listViewAdapter.clear();
                 if (isChecked){
                     MainActivity.backgroundWorker.customerList = Array;
+                    MainActivity.backgroundWorker.currentCustomer = Array.get(0);
+                    MainActivity.customer = Array.get(0);
                     for (int i = 0; i < Array.size(); i++)
 
                         listViewAdapter.add(Array.get(i).getFirstName() + " " + Array.get(i).getLastName());
                     Log.v("Switch State=", ""+isChecked);
                 }
                 else{
+                    MainActivity.backgroundWorker.currentCustomer = Array1.get(0);
                     MainActivity.backgroundWorker.customerList = Array1;
+                    MainActivity.customer = Array.get(0);
                     for (int i = 0; i < Array1.size(); i++)
                         listViewAdapter.add(Array1.get(i).getFirstName() + " " + Array1.get(i).getLastName());
                     Log.v("Switch State=", ""+isChecked);

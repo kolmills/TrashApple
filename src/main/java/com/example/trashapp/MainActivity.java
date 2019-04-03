@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP CURRENT VARIABLES*/
             customer = new Customer();
             currentTicket = new Ticket();
+
            // customerList = createCustomerList();
             simpleSwitch = (Switch) findViewById(R.id.switch1);
 
@@ -140,14 +141,14 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             /**SETS UP THE FRAGMENTS*/
             FirebaseApp.initializeApp(this);
             backgroundWorker = new BackgroundWorker(this);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, TicketListFragment.newInstance(backgroundWorker.getTicketList()));
-            transaction.commit();
+
+           // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+           // transaction.replace(R.id.content, TicketListFragment.newInstance(backgroundWorker.getTicketList()));
+            //transaction.commit();
             /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
+            navigation.setSelectedItemId(R.id.navigation_TicketList);
             /**if there is no previous instance of the employees ID*/
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             String text = sharedPref.getString("CurrentEmployeeID", "");
