@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     }
                     else{
                         Toast toast = Toast.makeText(getApplicationContext(), "Please select the ticket first", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM, 0, 100);
                         toast.show();
                         return false;
                     }
@@ -192,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      */
     public void getTicketList(View view) {
         listTest = backgroundWorker.getTicketList();
+        Toast toast = Toast.makeText(getApplicationContext(), "The information has been downloaded", Toast.LENGTH_SHORT);
+        toast.show();
         }
 
     /**
@@ -229,11 +233,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
         BackgroundWorker.saveTicket();
 
-
-
         //Add a toast displaying the info
         Toast toast=Toast.makeText(getApplicationContext(),"Ticket Updated!",Toast.LENGTH_SHORT);
-        toast.setMargin(50,50);
         toast.show();
 
         Log.i("info", "Customer Saved!!");

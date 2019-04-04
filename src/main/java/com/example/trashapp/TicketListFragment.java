@@ -21,7 +21,9 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 import static com.example.trashapp.BackgroundWorker.customerList;
@@ -52,6 +54,10 @@ public class TicketListFragment extends ListFragment {
     OnHeadlineSelectedListener callback;
     ArrayAdapter<String> listViewAdapter;
     ListView listView;
+
+    Map<Integer, Boolean> ticketStatus = new HashMap<>();
+
+
     public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
         callback = activity;
     }
@@ -202,6 +208,10 @@ public class TicketListFragment extends ListFragment {
         Customer c =(Customer) MainActivity.backgroundWorker.getCustomerList().get(position);
         MainActivity.backgroundWorker.setCurrentCustomer(position);
         MainActivity.currentTicket = c.getTicketList().get(0);
+
+        view.setBackgroundColor(Color.BLUE);
+        //listView.getAdapter().getView(position, )
+
         callback.onArticleSelected(position);
     }
 
