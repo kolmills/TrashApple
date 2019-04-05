@@ -93,7 +93,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                         transaction3.commit();
                         return true;
                     }
-                    return false;
+                    else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please select the ticket first", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return false;
+                    }
+
 
                 case R.id.navigation_TicketList:
                     //backgroundWorker.getTicketList();
