@@ -53,6 +53,10 @@ public class CurrentTicketView extends Fragment {
         return fragment;
     }
 
+    /**
+     * on the creation of the fragment, not much happens
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,35 +66,42 @@ public class CurrentTicketView extends Fragment {
         }
     }
 
+    /**
+     * when it goes to view the fragment much more will happen.
+     * it will inflate according to size the container and fill it with all the
+     * information of the current ticket
+     * @param inflater this is an inflator that has functions tied to it
+     * @param container a container that is filled according to the fragment selected
+     * @param savedInstanceState the previous state of the fragment
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_current_ticket_view, container, false);
-
         View RootView = inflater.inflate(R.layout.fragment_current_ticket_view, container, false);
         Ticket ticket = MainActivity.backgroundWorker.currentCustomer.getTicketList().get(0);
         Customer customer = MainActivity.backgroundWorker.currentCustomer;
-        /**SET CURRENT TICKET VALUES*/
+        //SET CURRENT TICKET VALUES
         TextView bangCustomer = (TextView) RootView.findViewById(R.id.currentCustomer);
         String fullName = String.format("%s %s", customer.getFirstName(), customer.getLastName());
         bangCustomer.setText(fullName);
-        /***/
+
         TextView currentAddress = (TextView) RootView.findViewById(R.id.currentCustomerAddress);
         currentAddress.setText(customer.getAddress());
-        /***/
+
         TextView currentPhoneNumber = (TextView) RootView.findViewById(R.id.currentCustomerPhoneNumber);
         currentPhoneNumber.setText(customer.getPhoneNumber());
-        /***/
+
         TextView currentEmail = (TextView) RootView.findViewById(R.id.currentCustomerEmail);
         currentEmail.setText(customer.getEmail());
-        /***/
+
         TextView currentNotes = (TextView) RootView.findViewById(R.id.currentCustomerSpecialNotes);
         currentNotes.setText(customer.getSpecialNotes());
-        /***/
+
         TextView currentGarbageDay = (TextView) RootView.findViewById(R.id.currentCustomerGarbageDay);
         currentGarbageDay.setText(customer.getGarbageDay());
-        /***/
+
         TextView currentSubscription = (TextView) RootView.findViewById(R.id.currentCustomerSubscriptionInfo);
         currentSubscription.setText(customer.getSubscriptionInfo());
 
@@ -103,13 +114,20 @@ public class CurrentTicketView extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * this listens for its selector to be pressed
+     * @param uri the Uri
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
+    /**
+     * this is a default function used for fragments
+     * @param context the context of the main activity
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -121,6 +139,9 @@ public class CurrentTicketView extends Fragment {
         }
     }
 
+    /**
+     * a default function for fragments
+     */
     @Override
     public void onDetach() {
         super.onDetach();

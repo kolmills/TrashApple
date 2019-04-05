@@ -29,19 +29,19 @@ public class HomeScreen extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * a default constructor
+     */
     public HomeScreen() {
         // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
+     *this is the new instance setup of the fragment
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment HomeScreen.
      */
-    // TODO: Rename and change types and number of parameters
     public static HomeScreen newInstance(String param1, String param2) {
         HomeScreen fragment = new HomeScreen();
         Bundle args = new Bundle();
@@ -51,6 +51,10 @@ public class HomeScreen extends Fragment {
         return fragment;
     }
 
+    /**
+     * not much happens on the creation of the fragment
+     * @param savedInstanceState the previous instance of the fragment
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,13 @@ public class HomeScreen extends Fragment {
         }
     }
 
+    /**
+     * inflates the container so that is can contain everything displayed on the home screen
+     * @param inflater a variable with functions connected to it
+     * @param container the container on the main to be filled
+     * @param savedInstanceState the previous instance
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,13 +78,20 @@ public class HomeScreen extends Fragment {
         return inflater.inflate(R.layout.fragment_home_screen, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * this listens for its button to be pressed to begin its preparations
+     * @param uri the Uri
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
+    /**
+     * a default fragment function
+     * @param context the Main context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -85,6 +103,9 @@ public class HomeScreen extends Fragment {
         }
     }
 
+    /**
+     * a default fragment function
+     */
     @Override
     public void onDetach() {
         super.onDetach();

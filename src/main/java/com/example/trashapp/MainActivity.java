@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
     CurrentTicketView CT;
     public static Switch simpleSwitch;
 
-
-
+    /**
+     * this is the controller for the navigation view when a item is selected
+     * it will then change the fragment being viewed along with certain specifics for it
+     */
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             Fragment selectedFragment = null;
 
             switch (item.getItemId()) {
+                //when the home screen is selected
                 case R.id.navigation_home:
-
                     //Put function for uploading from datbase
                     //ticketList = BackgroundWorker.getTicketList();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -74,18 +76,16 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     transaction.replace(R.id.content, selectedFragment);
                     transaction.commit();
                     return true;
+                //when the current ticket view is selected
                 case R.id.navigation_current_ticket:
-
-                    /**CREATE THE FRAGMENT*/
                     FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                     selectedFragment = CurrentTicketView.newInstance("Andy", "James");
-
                     transaction2.replace(R.id.content, selectedFragment);
                     transaction2.commit();
-
                     return true;
+                //when the maps view is selected
                 case R.id.navigation_Map:
-
+                    //checks if thre are tickets to show to change it over
                     if(customer.getTicketList() != null) {
                         FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                         selectedFragment = MapDisplay.newInstance("Andy", "James");
@@ -93,15 +93,14 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                         transaction3.commit();
                         return true;
                     }
+                    //if no tickets toast that and dont change display
                     else{
                         Toast toast = Toast.makeText(getApplicationContext(), "Please select the ticket first", Toast.LENGTH_SHORT);
                         toast.show();
                         return false;
                     }
-
-
+                //when the ticketlist view is selected
                 case R.id.navigation_TicketList:
-                    //backgroundWorker.getTicketList();
 
                     FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
                     selectedFragment = TicketListFragment.newInstance(backgroundWorker.getTicketList());
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     transaction4.commit();
 
                     return true;
-
+                //when the ticket editor is selected
                 case R.id.navigation_TicketEditor:
 
                     FragmentTransaction transaction5 = getSupportFragmentManager().beginTransaction();
@@ -119,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
 
                     return true;
             }
+            //if there is no selection
             return false;
         }
             };
@@ -138,9 +138,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             currentTicket = new Ticket();
            // customerList = createCustomerList();
             simpleSwitch = (Switch) findViewById(R.id.switch1);
-
-
-
 
             /**SETS UP THE FRAGMENTS*/
             FirebaseApp.initializeApp(this);
@@ -163,6 +160,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
              mainEmployeeID = sharedPref.getString("CurrentEmployeeID", "");
         }
 
+    /**
+     * this is an interface function, required in other areas
+      * @param uri the Uri being passed in
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      */
     public void saveTicketInfo(View view) {
 
-            //LOGIC FOR SAVING A SPECIAL NOTE ENTERED BY THE USER
+        //LOGIC FOR SAVING ALL OF THE INFORMATION
         EditText note = findViewById(R.id.specialnoteSave);
         currentCustomer.setSpecialNotes(note.getText().toString());
 
@@ -239,6 +240,11 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         Log.i("info", "Customer Saved!!");
     }
 
+    /**
+     * the switch function for the ticket list fragment
+     * if selected is will display all tickets
+     * if not selected it will display tickets not conpleted
+     */
     public static void updateSwitch(){
         Boolean switchState = simpleSwitch.isChecked();
     }
@@ -263,6 +269,12 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             BackgroundWorker.saveTicket();
     }
 
+    /**
+     * the function for the ticketlist fragment that passes in the position
+     * of the list that has been pressed by the user.
+     * it will then change the current customer/ticket to the one selected
+     * @param position an integer of the position that was selected
+     */
     @Override
     public void onArticleSelected(int position) {
         //set the current ticket to be the one selected
@@ -270,6 +282,10 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         currentTicket.setCustomer(customer);
     }
 
+    /**
+     * if the attacked fragment is the ticket list it will include a listener for the selector
+     * @param fragment the fragment that we are changing to
+     */
     @Override
     public void onAttachFragment(Fragment fragment) {
         if (fragment instanceof TicketListFragment) {

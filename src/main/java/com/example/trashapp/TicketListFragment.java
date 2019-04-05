@@ -52,6 +52,11 @@ public class TicketListFragment extends ListFragment {
     OnHeadlineSelectedListener callback;
     ArrayAdapter<String> listViewAdapter;
     ListView listView;
+
+    /**
+     * listens for the headline being selected
+     * @param activity an Activity being passed in
+     */
     public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
         callback = activity;
     }
@@ -60,7 +65,11 @@ public class TicketListFragment extends ListFragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
+    /**
+     * creates a new instance of the fragment and fills the customers list
+     * @param list the list being passed in to fill
+     * @return
+     */
     public static TicketListFragment newInstance(List<Customer> list) {
         customers = list;
         TicketListFragment fragment = new TicketListFragment();
@@ -69,6 +78,10 @@ public class TicketListFragment extends ListFragment {
         return fragment;
     }
 
+    /**
+     * not much happens on the creation
+     * @param savedInstanceState the previous instance
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +91,16 @@ public class TicketListFragment extends ListFragment {
         }
     }
 
+    /**
+     * when the view is switched to it is will fill the list with values of different
+     * tickets and display them.
+     * while the view is still on it will check for changes to the database so that things can be updated
+     * on the fly!
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -157,13 +180,20 @@ public class TicketListFragment extends ListFragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * checks for the fragment to be selected
+     * @param uri a Uri
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
+    /**
+     * default fragment function
+     * @param context the Main context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -175,6 +205,9 @@ public class TicketListFragment extends ListFragment {
         }
     }
 
+    /**
+     * default fragment function
+     */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -196,6 +229,14 @@ public class TicketListFragment extends ListFragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * this function is called when a user selects an item on the list
+     * it will change the current customer in the Main activity
+     * @param listView the Listview that is being interacted with
+     * @param view the view the lstview is in
+     * @param position an integer that is what is selected
+     * @param id the id of what is selected
+     */
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         // Send the event to the host activity
@@ -205,6 +246,9 @@ public class TicketListFragment extends ListFragment {
         callback.onArticleSelected(position);
     }
 
+    /**
+     * interface for main activity
+     */
     public interface OnHeadlineSelectedListener {
         public void onArticleSelected(int position);
     }
