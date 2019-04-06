@@ -86,6 +86,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         return mView;
     }
 
+    /**
+     * Execute after onCreatView  is called
+     * The map view is initialzied
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -99,7 +105,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Execute when the fragment is attached from the activity
+     * Execute when the fragment is attached to the activity
      */
 
     @Override
@@ -121,6 +127,10 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         mListener = null;
     }
 
+    /**
+     *
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
