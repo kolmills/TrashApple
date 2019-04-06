@@ -232,6 +232,12 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         updateUI();
     }
 
+    /**
+     * this converts an inputted address into latitude and longitude coordinates
+     * @param context the context
+     * @param strAddress the street address to be converted
+     * @return returns lat and lon coordinates
+     */
     public LatLng getLocationFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);

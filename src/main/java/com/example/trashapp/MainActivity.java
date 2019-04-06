@@ -2,6 +2,7 @@ package com.example.trashapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -70,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
             switch (item.getItemId()) {
                 //when the home screen is selected
                 case R.id.navigation_home:
-                    //Put function for uploading from datbase
-                    //ticketList = BackgroundWorker.getTicketList();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     selectedFragment = HomeScreen.newInstance("Andy", "James");
                     transaction.replace(R.id.content, selectedFragment);
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
                     return true;
                 //when the maps view is selected
                 case R.id.navigation_Map:
-                    //checks if thre are tickets to show to change it over
+                    //checks if there are tickets to show to change it over
                     if(customer.getTicketList() != null) {
                         FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                         selectedFragment = MapDisplay.newInstance("Andy", "James");
@@ -134,19 +133,18 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
             /**SETS UP CURRENT VARIABLES*/
             customer = new Customer();
             currentTicket = new Ticket();
-           // customerList = createCustomerList();
+
             simpleSwitch = (Switch) findViewById(R.id.switch1);
 
             /**SETS UP THE FRAGMENTS*/
             FirebaseApp.initializeApp(this);
             backgroundWorker = new BackgroundWorker(this);
-           // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-           // transaction.replace(R.id.content, TicketListFragment.newInstance(backgroundWorker.getTicketList()));
-            //transaction.commit();
+
             /**SETS UP THE NAVIGATION ON BOTTOM*/
             BottomNavigationView navigation = findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements HomeScreen.OnFrag
      */
     public void saveTicketInfo(View view) {
 
-        //LOGIC FOR SAVING ALL OF THE INFORMATION
+        //SAVING ALL OF THE INFORMATION
         EditText note = findViewById(R.id.specialnoteSave);
         currentCustomer.setSpecialNotes(note.getText().toString());
 
