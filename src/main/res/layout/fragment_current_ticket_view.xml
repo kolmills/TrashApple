@@ -18,6 +18,7 @@
             android:layout_marginBottom="10dp"
             android:text="Current Ticket"
             android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="24sp" />
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Current Customer: "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -34,6 +36,7 @@
             android:layout_marginLeft="150dp"
             android:layout_marginTop="-25dp"
             android:text="A"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -42,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Address: "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -51,6 +55,7 @@
             android:layout_marginLeft="75dp"
             android:layout_marginTop="-25dp"
             android:text="B"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -59,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Phone Number:  "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -68,6 +74,7 @@
             android:layout_marginLeft="125dp"
             android:layout_marginTop="-25dp"
             android:text="C"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -76,15 +83,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Email:"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/currentCustomerEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="115dp"
+            android:layout_marginLeft="55dp"
             android:layout_marginTop="-25dp"
             android:text="D"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -93,12 +102,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Special Notes:"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/currentCustomerSpecialNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -107,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Garbage Day: "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -116,6 +128,7 @@
             android:layout_marginLeft="115dp"
             android:layout_marginTop="-25dp"
             android:text="F"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -124,6 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Subscribed Until: "
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <TextView
@@ -133,6 +147,7 @@
             android:layout_marginLeft="140dp"
             android:layout_marginTop="-25dp"
             android:text="G"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp" />
 
         <CheckBox
@@ -140,10 +155,15 @@
             style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="100dp"
+            android:onClick="onCheckboxClicked"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
             android:text="Ticket Completed"
-            android:onClick="onCheckboxClicked"/>
+            android:textAlignment="textStart"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

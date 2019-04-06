@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ticket Editor"
                 android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <TextView
@@ -31,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Current Customer: "
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <TextView
@@ -38,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="-10dp"
-                android:text="First Name" />
+                android:text="First Name"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -48,7 +51,8 @@
                 android:layout_marginTop="-10dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginBottom="-5dp"
-                android:text="Last Name" />
+                android:text="Last Name"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <EditText
                 android:id="@+id/firstNameSave"
@@ -59,8 +63,10 @@
                 android:layout_marginEnd="230dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="first"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -75,8 +81,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="last"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -87,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Address: "
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -97,8 +106,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="address"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -109,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Phone Number:  "
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -119,8 +131,11 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:maxLength="10"
+                android:selectAllOnFocus="false"
                 android:text="number"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -131,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Email:"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -141,8 +157,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="email"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -153,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Special Notes:"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -163,8 +182,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="note"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -175,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Garbage Day: "
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -185,8 +207,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="day"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -197,6 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Subscribed Until: "
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="24sp" />
 
             <EditText
@@ -207,8 +232,10 @@
                 android:layout_marginEnd="8dp"
                 android:ems="9"
                 android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
+                android:selectAllOnFocus="false"
                 android:text="sub"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
