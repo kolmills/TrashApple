@@ -167,7 +167,7 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
                         Location mLastKnownLocation = (Location) task.getResult();
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 15.0f));
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLocationFromAddress(getContext(), MainActivity.backgroundWorker.currentCustomer.getAddress()), 15.0f));
                     }
                 }
             });
@@ -261,4 +261,5 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
         return p1;
     }
+
 }
