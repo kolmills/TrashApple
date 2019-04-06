@@ -8,7 +8,7 @@ public class Ticket{
     private Employee employee;
     private Date date;
     private Time time;
-    private Map mapPoint;
+//    private Map mapPoint;
     private boolean status;
     private String specialNotes;
 
@@ -48,13 +48,13 @@ public class Ticket{
         this.time = time;
     }
 
-    public Map getMapPoint() {
-        return mapPoint;
-    }
-
-    public void setMapPoint(Map mapPoint) {
-        this.mapPoint = mapPoint;
-    }
+//    public Map getMapPoint() {
+//        return mapPoint;
+//    }
+//
+//    public void setMapPoint(Map mapPoint) {
+//        this.mapPoint = mapPoint;
+//    }
 
     public boolean getStatus() {
         return status;

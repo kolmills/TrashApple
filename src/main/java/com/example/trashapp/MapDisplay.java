@@ -77,17 +77,6 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        // Construct a GeoDataClient.
-//        mGeoDataClient = Places.getGeoDataClient(this, null);
-//
-//        // Construct a PlaceDetectionClient.
-//        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
-//
-//        // Construct a FusedLocationProviderClient.
-//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-
         getLocationPermission();
     }
 
@@ -110,6 +99,11 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
             mMapView.getMapAsync(this);
         }
     }
+
+    /**
+     * Execute when the fragment is attached from the activity
+     */
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -120,10 +114,13 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         }
     }
 
-        @Override
-        public void onDetach() {
-            super.onDetach();
-            mListener = null;
+    /**
+     * execute when the fragment is detached from the activity
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
@@ -146,6 +143,9 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
     }
 
+    /**
+     * The function will update the view of the map
+     */
     private void updateUI() {
 
         if(mGoogleMap == null){
@@ -200,6 +200,13 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         }
     }
 
+
+    /**
+     * Get the current location permission
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
