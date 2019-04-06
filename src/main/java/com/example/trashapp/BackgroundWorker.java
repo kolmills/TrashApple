@@ -36,7 +36,9 @@ public class BackgroundWorker {
 
     public static ArrayList<Customer> customerList;
     private Employee employeeObject;
+    private Map mapObject;
     protected static Customer currentCustomer;
+    private List<Map> mapList;
     private List<Ticket> ticketList = new ArrayList<>();
     public static int currentTicketPosition;
     static ArrayList<Customer> testList;
@@ -49,6 +51,11 @@ public class BackgroundWorker {
     DatabaseReference myRef1;
     DatabaseReference newChildRef;
 
+    /**
+     *
+     * @param tree contains the this variable being passed in from main
+     *             sets up firebase and initializes a dummy customer to avoid null exceptions
+     */
     BackgroundWorker(Context tree){
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("com.example.trashapp")
@@ -58,7 +65,6 @@ public class BackgroundWorker {
                 .build();
         FirebaseApp.initializeApp(tree, options);
         database = FirebaseDatabase.getInstance();
-        //myRef1 = database.getReference("Customer");
         currentCustomer = new Customer();
         currentCustomer.setFirstName("Please select");
         currentCustomer.setLastName("a ticket");
@@ -75,56 +81,59 @@ public class BackgroundWorker {
 
             }
 
+    /**
+     *
+     * @param position
+     * Conatins the position in the array of the current ticket being edited
+     */
     public void setCurrentCustomer(int position) {
         currentTicketPosition = position;
         currentCustomer = customerList.get(position);
     }
 
-    public interface DataStatus{
-        void DataIsLoaded(List<Ticket> tickets, List<String> keys);
-        void DataIsInserted();
-        void DataIsUpdated();
-        void DataIsDeleted();
-    }
-
-    public Employee getEmployeeObject(String employeeID) {
-        return employeeObject;
-    }
-
-    public void setEmployeeObject(Employee employeeObject) {
-        this.employeeObject = employeeObject;
-    }
-
+    /**
+     * Returns the current list of customers
+     * @param position
+     * @return
+     */
     public Customer getCustomerObject(int position) {
         return customerList.get(position);
 
     }
 
+    /**
+     * Returns a list of addresses for the map fragment
+     * @return
+     */
+    public List getMapList() {
+        return mapList;
+    }
 
+    /**
+     * Sets the list of addresses for the map to read from
+     * @param mapList
+     */
+    public void setMapList(List mapList) {
+        this.mapList = mapList;
+    }
+
+    /**
+     * returns a list of customers with tickets in an array.
+     * @return
+     */
     public List getTicketList() {
         customerList = getCustomerList();
 
         return ticketList;
     }
 
-    public void setTicketList(List ticketList) {
-        this.ticketList = ticketList;
-    }
-
+    /**
+     * returns a list of customers
+     * @return
+     */
     public ArrayList getCustomerList() {
         return customerList;
     }
-
-    public void setCustomerList(ArrayList customerList) {
-        //myRef.child("Customers").setValue(customerList);
-        this.customerList = customerList;
-    }
-
-    /**
-     * save the ticket to the database by either creation of a new one
-     * or updating a current one
-     //* @param ticket
-     */
 
     public void makeSampleCustomer(Customer customenr){
         newChildRef = myRef.push();
@@ -164,7 +173,6 @@ public class BackgroundWorker {
                 w.setStatus(currentCustomer.getTicketList().get(i).getStatus());
                 test.add(w);
             }
-            // cust1.setTicketList(currentCustomer.getTicketList());
             cust1.setTicketList(test);
             myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).removeValue();
             myRef.child("CustomerSet").child(currentCustomer.getPhoneNumber()).setValue(cust1);
@@ -180,7 +188,6 @@ public class BackgroundWorker {
 
     public ArrayList createCustomerList(){
         final ArrayList<Customer> testList = new ArrayList<>();
-       //myRef.child("Customers").setValue(testList);
             Ticket t = new Ticket();
             ArrayList<Ticket> test = new ArrayList<>();
             test.add(t);
@@ -220,8 +227,6 @@ public class BackgroundWorker {
             for (int i = 0; i < testList.size(); i++){
                myRef.child("CustomerSet").child(testList.get(i).getPhoneNumber()).setValue(testList.get(i));
            }
-
-       // myRef.child("Customers").setValue(testList);
             return testList;
 
     }

@@ -35,9 +35,7 @@ public class TicketEditor extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
+     * creates the new instance of the fragment
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment TicketEditor.
@@ -52,6 +50,10 @@ public class TicketEditor extends Fragment {
         return fragment;
     }
 
+    /**
+     * not much happens on create
+     * @param savedInstanceState previous instnce of the fragment
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,14 @@ public class TicketEditor extends Fragment {
         }
     }
 
+    /**
+     * when it switched to view this fragment it will fill all of the text boxes to be edited
+     * so that upon editing uses can delete or add tot he info already there
+     * @param inflater a variable with functions attached to is
+     * @param container the container in main activity to be filled
+     * @param savedInstanceState the previous instance
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,13 +106,20 @@ public class TicketEditor extends Fragment {
         return RootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /**
+     * this waits for its button to be pressed so the fragment can become active
+     * @param uri
+     */
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
 
+    /**
+     * default fragment function
+     * @param context the Main context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -114,6 +131,9 @@ public class TicketEditor extends Fragment {
         }
     }
 
+    /**
+     * deafult fragment function
+     */
     @Override
     public void onDetach() {
         super.onDetach();

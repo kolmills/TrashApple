@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".EnterEmployeeID">
 
     <TextView
@@ -39,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"
         android:onClick="SetEmployeeID"
         android:text="Send ID"
         app:layout_constraintEnd_toEndOf="parent"

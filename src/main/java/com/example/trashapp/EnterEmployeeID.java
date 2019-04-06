@@ -12,13 +12,21 @@ import android.widget.Toast;
 import android.app.Activity;
 
 public class EnterEmployeeID extends AppCompatActivity {
-
+    /**
+     * on creation of the activity for an employee to login
+     * @param savedInstanceState the previous instance of this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_employee_id);
     }
 
+    /**
+     * the saves the employee id that was entered, it saves it to the shared prefrences
+     * of the phone so that on restart is will remember who logged into it last
+     * @param theButton this is the view of the button pressed by the user to activate it
+     */
     public void SetEmployeeID(View theButton){
 
         //set the systems employee ID
