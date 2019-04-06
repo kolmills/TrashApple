@@ -186,6 +186,13 @@ public class BackgroundWorker {
         return t;
     }
 
+    /**
+     * this is a hard coded customer list that will fill our database and app with
+     * imaginary customers. it was created to help put in customers because during development
+     * we would occasionally delete the database
+     * this is kept for test cases and such
+     * @return returns a list of customers
+     */
     public ArrayList createCustomerList(){
         final ArrayList<Customer> testList = new ArrayList<>();
             Ticket t = new Ticket();

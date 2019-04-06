@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -75,7 +74,6 @@ public class TicketEditor extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_ticket_editor, container, false);
         View RootView = inflater.inflate(R.layout.fragment_ticket_editor, container, false);
         Customer customer = MainActivity.backgroundWorker.currentCustomer;
         //SET ALL THE VALUES TO WHAT THEY CURRENTLY ARE
@@ -132,7 +130,7 @@ public class TicketEditor extends Fragment {
     }
 
     /**
-     * deafult fragment function
+     * default fragment function
      */
     @Override
     public void onDetach() {
