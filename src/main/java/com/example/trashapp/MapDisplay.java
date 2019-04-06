@@ -33,14 +33,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link MapView.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link MapView#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class MapDisplay extends Fragment implements OnMapReadyCallback {
 
     private OnFragmentInteractionListener mListener;
@@ -74,12 +66,18 @@ public class MapDisplay extends Fragment implements OnMapReadyCallback {
         return fragment;
     }
 
+    /**
+     * Execute when a fragment is created
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
     }
 
+    /**
+     * Execute when the view is created
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

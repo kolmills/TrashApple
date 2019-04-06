@@ -36,9 +36,9 @@ public class BackgroundWorker {
 
     public static ArrayList<Customer> customerList;
     private Employee employeeObject;
-    private Map mapObject;
+
     protected static Customer currentCustomer;
-    private List<Map> mapList;
+
     private List<Ticket> ticketList = new ArrayList<>();
     public static int currentTicketPosition;
     static ArrayList<Customer> testList;
@@ -99,22 +99,6 @@ public class BackgroundWorker {
     public Customer getCustomerObject(int position) {
         return customerList.get(position);
 
-    }
-
-    /**
-     * Returns a list of addresses for the map fragment
-     * @return
-     */
-    public List getMapList() {
-        return mapList;
-    }
-
-    /**
-     * Sets the list of addresses for the map to read from
-     * @param mapList
-     */
-    public void setMapList(List mapList) {
-        this.mapList = mapList;
     }
 
     /**
