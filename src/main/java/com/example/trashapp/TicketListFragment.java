@@ -55,7 +55,7 @@ public class TicketListFragment extends ListFragment {
     ArrayAdapter<String> listViewAdapter;
     ListView listView;
 
-    Map<Integer, Boolean> ticketStatus = new HashMap<>();
+    public static Map<Integer, Boolean> ticketStatus = new HashMap<>();
 
 
     public void setOnHeadlineSelectedListener(OnHeadlineSelectedListener activity) {
@@ -82,6 +82,8 @@ public class TicketListFragment extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -119,7 +121,11 @@ public class TicketListFragment extends ListFragment {
                     for (int i = 0; i < Array1.size(); i++)
                         listViewAdapter.add(Array1.get(i).getFirstName() + " " + Array1.get(i).getLastName());
                     Log.v("Switch State=", ""+isChecked);
+
+
                 }
+
+
 
                 listViewAdapter.notifyDataSetChanged();
             }
@@ -151,6 +157,18 @@ public class TicketListFragment extends ListFragment {
 
                     i++;
                 }
+
+                //Initiazlie the map customer status
+                if(ticketStatus.isEmpty()) {
+                    for (int j = 0; j < MainActivity.backgroundWorker.customerList.size(); j++) {
+                        ticketStatus.put(j, false);
+                    }
+                }
+
+                /*for(int i = 0; i < customerList; i++) {
+
+                    //listViewAdapter.setBackgroundColor(Color.BLUE);
+                }*/
 
             }
 
@@ -209,9 +227,16 @@ public class TicketListFragment extends ListFragment {
         MainActivity.backgroundWorker.setCurrentCustomer(position);
         MainActivity.currentTicket = c.getTicketList().get(0);
 
-        view.setBackgroundColor(Color.BLUE);
-        //listView.getAdapter().getView(position, )
 
+
+        if(!ticketStatus.get(position)) {
+            ticketStatus.put(position, true);
+            view.setBackgroundColor(Color.BLUE);
+        }
+        else {
+            ticketStatus.put(position, false);
+            view.setBackgroundColor(Color.GRAY);
+        }
         callback.onArticleSelected(position);
     }
 
